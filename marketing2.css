@@ -19,6 +19,10 @@
 	height: 32px;
 
 }
+.headingControl {
+	width: 130px;
+	height: 31px;
+}
 .ValueBox {float: right; width: 250px; height: 31px; display: none;}
 .headerBar .btn-default:last-child {float: right;}
 
@@ -26,7 +30,7 @@
 	position: relative;
 	
 }
-.droppableContainer .panel {margin: 3px;}
+.droppableContainer .panel {margin: 0px;}
 .options li .panel {margin: 0; border: 0;}
 .options li .panel-heading {display: none;}
 .options li .panel-body {display: none}
@@ -48,6 +52,10 @@
 
 li.initial {
 	padding-left: 0;
+	text-align: center;
+	color: #777;
+	border: 2px dashed #aaa;
+	padding: 10px;
 }
 
 .droppableContainer .ShowOnAvail {
@@ -60,4 +68,8 @@ li.initial {
 
 .removeItem {
 	float: right;
+}
+
+.buttonRow {
+	display: flex;
 }
