@@ -71,5 +71,7 @@ function ConfigAllSortables() {
             $(ui.item[0]).parent().find("li").addClass("ItemUpdated");
         }
     });
+
+    $(".VisibleToolbarList").disableSelection();
 }
 ConfigAllSortables();

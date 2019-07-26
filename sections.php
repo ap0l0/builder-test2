@@ -1,5 +1,9 @@
 <li class="AvailableToolbar list-group-item ui-sortable-handle" toolbarcode="add_markup" style="display: block;">
-        <div class="headerBar">
+        <div class="optionWrapper panel panel-default">
+            <div class="panel-display">
+                <span class="title">Section</span>
+            </div>
+            <div class="panel-heading">
             <a href="#" class="btn btn-default btn-sm mover">
                 <i class="fa fa-arrows-v"></i>
             </a>
@@ -8,9 +12,10 @@
                 <i class="fa fa-times text-danger"></i>
 
             </a>
-            <input type="text" class="ValueBox form-control" value="section_234" onchange="LabelChanged(this);">
+            <input type="text" class="ValueBox form-control" value="section_<?php echo time();?>" onchange="LabelChanged(this);">
             
         </div>
+        <div class="panel-body">
     <ul class="VisibleToolbarList ui-sortable" style="">
         <li class="initial ui-sortable-handle">Add content</li>
     </ul>
@@ -25,4 +30,7 @@
             <i class="fa fa-times text-danger"></i>
         <img src="/Images/Delete.png" style="width:16px;" class="hidden">
         </a>
+
+        </div>
+    </div>
     </li>

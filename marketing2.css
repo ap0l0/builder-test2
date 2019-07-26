@@ -19,20 +19,27 @@
 	height: 32px;
 
 }
-.ValueBox {float: right; width: 250px; height: 31px;}
+.ValueBox {float: right; width: 250px; height: 31px; display: none;}
 .headerBar .btn-default:last-child {float: right;}
 
 .ItemUpdated {
 	position: relative;
 	
 }
-
-
+.droppableContainer .panel {margin: 3px;}
+.options li .panel {margin: 0; border: 0;}
+.options li .panel-heading {display: none;}
+.options li .panel-body {display: none}
+.options li .panel-options {display: none}
 .options .headerBar {display: none}
 .options .AvailableToolbar .VisibleToolbarList {display: none}
 
 .droppableContainer .AvailableToolbar {
-	padding-top: 50px;
+	padding: 0;
+}
+
+.droppableContainer .panel-display {
+	display: none
 }
 .droppableContainer>ul {
 	padding-bottom: 2em;
