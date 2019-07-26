@@ -115,11 +115,9 @@ var layout = {
             '</div>'+
             '<input type="text" class="ValueBox form-control" value="section_">'+
             '</div>'+
-            '<div class="panel-body">'+
-                '<ul class="VisibleToolbarList">'+
-                    '<li class="initial">Add content</li>'+
-                '</ul>'+
-                '<a class="ShowOnUse btn btn-default default-sm mover" style="display:none;">'+
+            '<div class="panel-body">';
+                stringy+= data['content'];
+                stringy +='<a class="ShowOnUse btn btn-default default-sm mover" style="display:none;">'+
                     '<i class="fa fa-arrows-v"></i>'+  
                 '</a>'+
                 '<a href="javascript:;" class="ShowOnUse btn btn-default btn-sm" style="display:none;">'+

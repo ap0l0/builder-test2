@@ -1,5 +1,6 @@
 <ul class="list-group AvailableToolbars">
-	<li class="AvailableToolbar ui-sortable-handle list-group-item" data-id="section" toolbarcode="add_markup">
+	<?php /*
+    <li class="AvailableToolbar ui-sortable-handle list-group-item" data-id="section" toolbarcode="add_markup">
         <div class="optionWrapper panel panel-default">
             <div class="panel-display">
                
@@ -171,4 +172,8 @@
             </div>
         </div>
     </li>
+    
+    <li class="list-group-item"><hr /></li>
+    
+    */ ?>
 </ul>

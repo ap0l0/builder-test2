@@ -12,6 +12,8 @@ var templates = {
             '</ul>'+   
         '</div>'+
     '</div>',
+    html: "<textarea class='form-control'></textarea>",
+    heading: "<input type='text' class='form-control' />"
 
 }
 var options = {
@@ -44,9 +46,11 @@ var options = {
 	},
 	"html": {
 		"icon": "fa-code",
+		"content": templates.html
 	},
 	"heading": {
 		"icon": "fa-header",
+		"content": templates.heading
 	},
 };
 
