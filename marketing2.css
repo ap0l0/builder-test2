@@ -1,0 +1,56 @@
+.droppableContainer {
+	background: #666;
+	min-height: 100vh;
+}
+.VisibleToolbarList {
+	list-style-type: none;
+	margin: 0;
+}
+.droppableContainer>.VisibleToolbarList {
+	padding-left: 0;
+}
+
+.headerBar {
+	position: absolute;
+	background: rgba(0,0,0,0.4);
+	width: 100%;
+	top:0;
+	left: 0;
+	height: 32px;
+
+}
+.ValueBox {float: right; width: 250px; height: 31px;}
+.headerBar .btn-default:last-child {float: right;}
+
+.ItemUpdated {
+	position: relative;
+	
+}
+
+
+.options .headerBar {display: none}
+.options .AvailableToolbar .VisibleToolbarList {display: none}
+
+.droppableContainer .AvailableToolbar {
+	padding-top: 50px;
+}
+.droppableContainer>ul {
+	padding-bottom: 2em;
+	background: #333;
+}
+
+li.initial {
+	padding-left: 0;
+}
+
+.droppableContainer .ShowOnAvail {
+	display: none;
+}
+
+.droppableContainer .AvailableToolbar .VisibleToolbarList  {
+	padding: 0;
+}
+
+.removeItem {
+	float: right;
+}
