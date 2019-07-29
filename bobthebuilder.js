@@ -17,6 +17,66 @@ var layout = {
             } 
         }
     },
+    populateOptions: function(type, data){
+        if(data!=null){
+            if(optionPopulation[type]){
+                optionPopulation[type](JSON.parse(data));
+            }
+        }
+        //console.log("populating options for", type, "with", data);
+    },
+    templateFunctions: {
+        background: function(parent, buttonId, nodeId){
+            $("#optionModal").attr("data-node", nodeId)
+            $("#optionModal .modal-body").html(optionMarkup[buttonId]);
+            var data = null;
+            if($(parent).attr("data-options")){
+                data  = $(parent).attr("data-options");
+            }
+            layout.populateOptions(buttonId, data);
+            $("#optionModal").modal("show");
+            
+            //var temp = "https://picsum.photos/1200/800";
+            //$(parent).css("background-image", "url('" + temp + "')");
+
+        },
+        colors: function(parent, buttonId, nodeId){
+            $("#optionModal").attr("data-node", nodeId)
+            $("#optionModal .modal-body").html(optionMarkup[buttonId]);
+            $("#optionModal").modal("show");
+           
+        }
+    },
+    buttonBinding: function(){
+        $(document).on("click", "a.removeItem", function(){
+            var $sect = $(this).closest(".AvailableToolbar");
+            $sect.remove();
+        });
+        $(document).on("click", ".buttonRow button", function(){
+            var buttonId = $(this).attr("data-type");
+            var $par = $(this).closest(".AvailableToolbar ");
+            var nodeId = $par.attr("id")
+            $("#optionModal").attr("data-type", buttonId);
+            $("#optionModal .modal-title span").text(buttonId);
+            
+            if(layout.templateFunctions[buttonId]){
+                layout.templateFunctions[buttonId]($par, buttonId, nodeId);
+            } else {
+                alert("no method " + buttonId)
+            }
+            
+        });
+        $(document).on("click", "button.saveModal", function(){
+            var type = $(this).closest(".modal").attr("data-type");
+            var node = $(this).closest(".modal").attr("data-node")
+            if(templateActions[type]){
+                templateActions[type](node, type)
+            }
+            //alert("save "+type)
+        });
+        
+
+    },
     ConfigAllSortables: function () {
     $(".AvailableToolbars").sortable({
         connectWith: ".VisibleToolbarList",
@@ -27,19 +87,17 @@ var layout = {
         },
         stop: function (e, ui) {
             //copyHelper && copyHelper.remove();
-            console.log("fire here");
+            //console.log("fire here");
             window.setTimeout(function(){
-                var $tar = $(e.target);
-                //console.log("sort target", $tar);
                 /*
-                if($tar.parents(".droppableContainer").length){
-                    console.log("in the right place")
-                } else {
-                    console.log("do not drop");
-                    //console.log("removing")
-                    $(ui.item[0]).remove();
-                } 
+                var $tar = $(e.target);
+                console.log("target",$tar)
+                var currentDate = new Date();
+                var mod = currentDate.getTime();
+                var dataid  = $(ui.item[0]).attr("data-id");
+                var newName = dataid+"_"+mod;
                 */
+                
                 layout.checkForDups();
             },200);  
         },
@@ -57,8 +115,12 @@ var layout = {
             var $tar = $(e.target);
             var currentDate = new Date();
             var mod = currentDate.getTime();
-            $(ui.item[0]).find(".ValueBox").val(thisTitle+"_"+mod)
- 
+            
+            
+            var t = setTimeout(function(){
+                //console.log("updating "+mod + " at ",$(ui.item[0]));
+                $(ui.item[0]).attr("id",thisTitle+"_"+mod);
+            }, 300)
            
             //The clones elements need to be setup as sortables, so reset sortable on everything
             layout.ConfigAllSortables();
@@ -73,7 +135,7 @@ var layout = {
     $(".VisibleToolbarList").disableSelection();
     },
     buildOption: function(name, data){
-        console.log(data)
+        //console.log(data)
         var stringy = '<li class="AvailableToolbar ui-sortable-handle list-group-item" data-id="' + name + '">'+
         '<div class="optionWrapper panel panel-default">'+
             '<div class="panel-display">'+
@@ -91,7 +153,7 @@ var layout = {
                for (var key in buttons) {
                     if (buttons.hasOwnProperty(key)) {
                         var thisButton = buttons[key];
-                        console.log("button",thisButton);
+                        //console.log("button",thisButton);
                         if(thisButton["type"]=="select"){
                             appendy += '<select class="form-control">';
                             for(var q = 0; q<thisButton['options'].length; q++){
@@ -102,7 +164,7 @@ var layout = {
                             appendy+= '</select>';
 
                         } else {
-                            appendy += '<button class="btn btn-sm btn-default ' + key + '">';
+                            appendy += '<button class="btn btn-sm btn-default ' + key + '" data-type="' + key+ '">';
                             appendy += '<i class="fa ' + thisButton.icon + '"></i></button>'
                         }
                         
@@ -113,7 +175,7 @@ var layout = {
                     '<i class="fa fa-times text-danger"></i>'+
                 '</a>'+
             '</div>'+
-            '<input type="text" class="ValueBox form-control" value="section_">'+
+            '<input type="text" class="ValueBox form-control" value="'+ name + '">'+
             '</div>'+
             '<div class="panel-body">';
                 stringy+= data['content'];
@@ -139,6 +201,11 @@ var layout = {
             }
         }
         layout.ConfigAllSortables();
+        layout.buttonBinding();
+    },
+    updateJSON:function(){
+        var $tar = $(".droppableContainer>.SaveDataContainer");
+        $tar.find(">li").each()
     }
 }
 
