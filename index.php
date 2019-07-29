@@ -23,7 +23,14 @@
 <div class="container-fluid">
 <div class="row">
 	<div class="col-sm-3 options">
-		<?php include "options.php"; ?>
+    <div class="btn btn-group">
+      <button class="btn btn-success saveJSON" type="button">
+        <i class="fa fa-check"></i> Save JSON
+      </button>
+    </div>
+		<ul class="list-group AvailableToolbars">
+
+    </ul>
 	</div>
 	<div class="col-sm-9">
 
@@ -67,6 +74,7 @@
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
+  <script src="sample.js"></script>
   <script src="options.js"></script>
   <script src="bobthebuilder.js"></script>
 </body>

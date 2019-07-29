@@ -66,6 +66,9 @@ var layout = {
             }
             
         });
+        $(document).on("click", "button.saveJSON", function(){
+            layout.updateJSON();
+        });
         $(document).on("click", "button.saveModal", function(){
             var type = $(this).closest(".modal").attr("data-type");
             var node = $(this).closest(".modal").attr("data-node")
@@ -134,8 +137,28 @@ var layout = {
 
     $(".VisibleToolbarList").disableSelection();
     },
+    buildSection: function(data, parent){
+        var type=data.type;
+        var id = data.id;
+        var options = data.options;
+        
+        if(options[options.length-1] =="\""){
+            
+            options  = options.substring(0, options.length-1)
+        }
+        console.log("options", options);
+        var opts = JSON.parse(options);
+        var stringy = "<li class='section AvailableToolbar list-group-item' id='" + id +"'' data-type='" + type + "'";
+        stringy +="style=\"background-image:url('" + opts["background-image"] + "')\"";
+        stringy +=">";
+        stringy+=id+"</li>";
+        console.log("data", data);
+        $(parent).append(stringy);
+
+    },
     buildOption: function(name, data){
-        //console.log(data)
+        // modularize the toolbar?
+
         var stringy = '<li class="AvailableToolbar ui-sortable-handle list-group-item" data-id="' + name + '">'+
         '<div class="optionWrapper panel panel-default">'+
             '<div class="panel-display">'+
@@ -192,6 +215,7 @@ var layout = {
         $(".options>ul").append(stringy)
     },
     getOptions: function(){
+       // get options
         for (var key in options) {
             if (options.hasOwnProperty(key)) {
                 //console.log(key + " -> " + options[key]);
@@ -200,14 +224,44 @@ var layout = {
 
             }
         }
+    },
+    init: function(){
+        layout.getOptions();
         layout.ConfigAllSortables();
         layout.buttonBinding();
+        layout.preloadLayout(sample);
+    },
+    buildNodeParent: $(".droppableContainer>ul"),
+    preloadLayout: function(dat){
+        console.log("loading ",dat.sections);
+        var sects = dat.sections;
+
+        for (var i=0; i<sects.length; i++) {
+           var thisSect = sects[i];
+           layout.buildSection(thisSect, layout.buildNodeParent)
+        }
+        
     },
     updateJSON:function(){
         var $tar = $(".droppableContainer>.SaveDataContainer");
-        $tar.find(">li").each()
+        var json = {};
+        var d = new Date();
+        json["updated"] = d.getTime();
+        json["sections"] = [];
+        $tar.find(">.AvailableToolbar").each(function(){
+            var $node = $(this);
+            var thisSection = {
+                id: $node.attr("id"),
+                options: $node.attr("data-options"),
+                type: $node.attr("data-type")
+
+            };
+            json["sections"].push(thisSection)
+        });
+        console.log("to save")
+        console.log(json)
     }
 }
 
 
-layout.getOptions();
+layout.init();

@@ -1,4 +1,4 @@
-<li class="AvailableToolbar list-group-item ui-sortable-handle" toolbarcode="add_markup" style="display: block;" id="section_12355764765">
+<li class="AvailableToolbar list-group-item ui-sortable-handle"  data-type="section" toolbarcode="add_markup" style="display: block;" id="section_12355764715">
         <div class="optionWrapper panel panel-default">
             <div class="panel-display">
                 <span class="title">Section</span>
