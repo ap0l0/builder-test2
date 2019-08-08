@@ -15,7 +15,7 @@
            "footer",
            "no_access"
         ];
-        
+
 var hb = {
     data: null,
     cssString: "",
@@ -514,10 +514,10 @@ var hb = {
 
     },
     setupFolders: function () {
-        var ajaxurl = 'Marketing/Site/GetUserMarketingFolders/';
+        var ajaxurl = 'getFolders.php';
         if (hb.Folders == null) {
             $.ajax({
-                url: ROOT + ajaxurl,
+                url: ajaxurl,
                 type: "get",
                 success: function (result) {
                     //console.log(result);
@@ -1690,7 +1690,7 @@ var hb = {
         $(document).on("click", ".toggleProps", function () {
 
             $(this).closest("li").toggleClass("active");
-            var ajaxurl = 'Marketing/Site/GetUserMarketingFolders/';
+            var ajaxurl = 'saveJson.php';
             $("#propsHolder").toggle();
 
             if (hb.NavLoaded == false) {
@@ -1698,7 +1698,7 @@ var hb = {
 
                 $("#propsHolder ul").append("<li><i class='fa fa-spinner fa-spin'></i></li>");
                 $.ajax({
-                    url: ROOT + ajaxurl,
+                    url: ajaxurl,
                     type: "get",
                     success: function (result) {
                         $("#propsHolder ul").empty();
@@ -2323,37 +2323,25 @@ var hb = {
             //console.log("save")
             //console.log(returnedVal)
             $("#ultimateJSON").val(returnedVal)
-            var ajaxurl = 'SiteAdministration/MarketingAdmin/SaveMarketingLayoutToFolder/';
+            var ajaxurl = 'saveJson.php';
             var ajaxdata = {
-                FolderGUID: $("#FolderID").val(),
-                FolderPath: $("#FolderPath").val(),
+                Updated: "",
                 LayoutJsonData: JSON.stringify(returnedVal)
             }
-            //console.log(ajaxdata);
+            console.log(returnedVal);
             //console.log("to fix: send to " + ajaxurl)
             
 
             
             $.ajax({
-                url: ROOT + ajaxurl,
+                url: ajaxurl,
                 type: "post",
-                data: JSON.stringify(ajaxdata),
-                dataType: "json",
-                contentType: 'application/json',
+                data: JSON.stringify(returnedVal),
                 success: function (result) {
-                    alert(result);
-                    //parent.callFromIframe();
-                    //alert("MapLayoutSections: " + result)
-
-                    //data = {
-                    //   FolderGUID: $("#FolderID").val(),
-                    //   LayoutID: $("#LayoutMappingSelector").val(),
-                    //   FolderPath: $("#FolderPath").val()
-                    //}
-                    //SaveLayoutFolder(data);
+                    console.log("result",result)
                 }
             }).fail(function (xhr) {
-                AjaxErrorHandler(xhr)
+                console.log(xhr)
             });
             
             
