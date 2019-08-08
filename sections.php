@@ -7,6 +7,7 @@
             <a href="#" class="btn btn-default btn-sm mover">
                 <i class="fa fa-arrows-v"></i>
             </a>
+            <span class="title">Section</span>
             <div class="btn-group pull-right buttonRow"><button class="btn btn-sm btn-default colors" data-type="colors"><i class="fa fa-paint-brush"></i></button><button class="btn btn-sm btn-default background" data-type="background"><i class="fa fa-picture-o"></i></button><a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true"><i class="fa fa-times text-danger"></i></a></div>
             <input type="text" class="ValueBox form-control" value="section_<?php echo time();?>" onchange="LabelChanged(this);">
             

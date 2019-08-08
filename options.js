@@ -106,6 +106,61 @@ var templates = {
     heading: "<input type='text' class='headingValue form-control' />"
 
 }
+
+var buildingBlocks = {
+	html: function(data) {
+		console.log("building html", data)
+		return "<li class='html AvailableToolbar'>" + data + "</li>";
+	},
+	columns: function(data){
+		var cols = data;
+		var num = data.content.length;
+
+		console.log("columns", num ,cols)
+		var colString = "<li class='AvailableToolbar'><div class='row columns'>";
+		var className = "col-sm-6";
+		switch(num){
+			case 1: className="col-sm-12"; break;
+			case 2: className="col-sm-6"; break;
+			case 3: className="col-sm-4"; break;
+			case 4: className="col-sm-3"; break;
+			default: className="col-sm-6"; break;
+		}
+
+		for(var i = 0; i<num; i++){
+
+			
+			var thisCol = data.content[i];
+
+
+			colString += "<div class='" + className + "' id='column_" + data.content[i].id + "'>";
+			//colString += "Column " + (i+1);
+			
+			if(thisCol["content"]){
+				console.log("thisCol content", thisCol["content"]);
+				var returnString ="<ul class='VisibleToolbarList'>";
+				for (var key in thisCol["content"]) {
+		            if (thisCol["content"].hasOwnProperty(key)) {
+		                var thisContent = thisCol["content"][key];  
+		                //console.log(":' ",key,"'", thisCol["content"]);
+		                returnString+= buildingBlocks[key](thisContent);
+		            } 
+		        } 
+		        returnString += "</ul>";
+		        colString +=returnString;    
+
+			}
+			else {
+				// blank
+			}
+			
+			colString += "</div>";		
+		}
+		colString += "</div></li>";
+		return colString;
+	}
+}
+
 var options = {
 	"section": {
 		"icon": "fa-th",

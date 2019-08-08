@@ -81,61 +81,61 @@ var layout = {
 
     },
     ConfigAllSortables: function () {
-    $(".AvailableToolbars").sortable({
-        connectWith: ".VisibleToolbarList",
-        forcePlaceholderSize: false,
-        helper: function (e, li) {
-            copyHelper = li.clone().insertAfter(li);
-            return li.clone();
-        },
-        stop: function (e, ui) {
-            //copyHelper && copyHelper.remove();
-            //console.log("fire here");
-            window.setTimeout(function(){
-                /*
+        $(".AvailableToolbars").sortable({
+            connectWith: ".VisibleToolbarList",
+            forcePlaceholderSize: false,
+            helper: function (e, li) {
+                copyHelper = li.clone().insertAfter(li);
+                return li.clone();
+            },
+            stop: function (e, ui) {
+                //copyHelper && copyHelper.remove();
+                //console.log("fire here");
+                window.setTimeout(function(){
+                    /*
+                    var $tar = $(e.target);
+                    console.log("target",$tar)
+                    var currentDate = new Date();
+                    var mod = currentDate.getTime();
+                    var dataid  = $(ui.item[0]).attr("data-id");
+                    var newName = dataid+"_"+mod;
+                    */
+                    
+                    layout.checkForDups();
+                },200);  
+            },
+            sort: function(e, ui) {
+                
+                
+            }
+        });
+        $(".VisibleToolbarList").sortable({
+            connectWith: ".VisibleToolbarList",
+            receive: function (e, ui) {
+                
+                var thisTitle = $(ui.item[0]).attr("data-id");
+                //console.log(thisTitle, "at", e, ui)
                 var $tar = $(e.target);
-                console.log("target",$tar)
                 var currentDate = new Date();
                 var mod = currentDate.getTime();
-                var dataid  = $(ui.item[0]).attr("data-id");
-                var newName = dataid+"_"+mod;
-                */
                 
-                layout.checkForDups();
-            },200);  
-        },
-        sort: function(e, ui) {
-            
-            
-        }
-    });
-    $(".VisibleToolbarList").sortable({
-        connectWith: ".VisibleToolbarList",
-        receive: function (e, ui) {
-            
-            var thisTitle = $(ui.item[0]).attr("data-id");
-            //console.log(thisTitle, "at", e, ui)
-            var $tar = $(e.target);
-            var currentDate = new Date();
-            var mod = currentDate.getTime();
-            
-            
-            var t = setTimeout(function(){
-                //console.log("updating "+mod + " at ",$(ui.item[0]));
-                $(ui.item[0]).attr("id",thisTitle+"_"+mod);
-            }, 300)
-           
-            //The clones elements need to be setup as sortables, so reset sortable on everything
-            layout.ConfigAllSortables();
-        },
-        sort: function(e, ui) {
-            //Changing the sort on a single item can screw with the sort values for all of the items, so mark them all at updated
-            $(ui.item[0]).parent().find("li").find(".Data_Modified").val("1");
-            $(ui.item[0]).parent().find("li").addClass("ItemUpdated");
-        }
-    });
+                
+                var t = setTimeout(function(){
+                    //console.log("updating "+mod + " at ",$(ui.item[0]));
+                    $(ui.item[0]).attr("id",thisTitle+"_"+mod);
+                }, 300)
+               
+                //The clones elements need to be setup as sortables, so reset sortable on everything
+                layout.ConfigAllSortables();
+            },
+            sort: function(e, ui) {
+                //Changing the sort on a single item can screw with the sort values for all of the items, so mark them all at updated
+                $(ui.item[0]).parent().find("li").find(".Data_Modified").val("1");
+                $(ui.item[0]).parent().find("li").addClass("ItemUpdated");
+            }
+        });
 
-    $(".VisibleToolbarList").disableSelection();
+        $(".VisibleToolbarList").disableSelection();
     },
     buildSection: function(data, parent){
         var type=data.type;
@@ -151,10 +151,63 @@ var layout = {
         var stringy = "<li class='section AvailableToolbar list-group-item' id='" + id +"'' data-type='" + type + "'";
         stringy +="style=\"background-image:url('" + opts["background-image"] + "')\"";
         stringy +=">";
-        stringy+=id+"</li>";
+        stringy+="</li>";
         console.log("data", data);
         $(parent).append(stringy);
+        // make header
+        layout.getEditHeader(id, "section", data);
+    },
+    buildContent: function(id, data){
+        var content = data.content;
+        var returnString ="";
+        for (var key in content) {
+            if (content.hasOwnProperty(key)) {
+                var thisContent = content[key];  
+                console.log("fn buildContent:' ",key,"'", thisContent);
+                returnString+= buildingBlocks[key](thisContent);
+            } 
+        }     
 
+        return returnString;
+    },
+    insertEditBar: function(id, type, data){
+        var stringy = '<div class="panel-heading">'+
+            '<a href="#" class="btn btn-default btn-sm mover">'+
+                '<i class="fa fa-arrows-v"></i>'+
+            '</a><span class="title">'+ type + '</span>'+
+            '<div class="btn-group pull-right buttonRow">'+
+            '<button class="btn btn-sm btn-default colors" data-type="colors">'+
+            '<i class="fa fa-paint-brush"></i>'+
+            '</button>'+
+            '<button class="btn btn-sm btn-default background" data-type="background">'+
+            '<i class="fa fa-picture-o"></i></button>'+
+            '<a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
+            '<i class="fa fa-times text-danger"></i></a></div>'+
+            '<input type="text" class="ValueBox form-control" value="section_1565271675" onchange="LabelChanged(this);">'+
+        '</div>';
+        $("#"+id).prepend(stringy)
+    },
+    getEditHeader: function(id, type, data){
+        var stringy = '<div class="optionWrapper panel panel-default">'+
+        '<div class="panel-heading">'+
+            '<a href="#" class="btn btn-default btn-sm mover">'+
+                '<i class="fa fa-arrows-v"></i>'+
+            '</a><span class="title">'+ type + '</span>'+
+            '<div class="btn-group pull-right buttonRow">'+
+            '<button class="btn btn-sm btn-default colors" data-type="colors">'+
+            '<i class="fa fa-paint-brush"></i>'+
+            '</button>'+
+            '<button class="btn btn-sm btn-default background" data-type="background">'+
+            '<i class="fa fa-picture-o"></i></button>'+
+            '<a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
+            '<i class="fa fa-times text-danger"></i></a></div>'+
+            '<input type="text" class="ValueBox form-control" value="section_1565271675" onchange="LabelChanged(this);">'+
+        '</div><div class="panel-body section-content"><ul class="VisibleToolbarList ">';
+        // get content recursively?
+        stringy+= layout.buildContent(id, data);
+        //stringy += '<br /><br /><Br />';
+        stringy +='<ul></div>';
+        $("#"+id).append(stringy)
     },
     buildOption: function(name, data){
         // modularize the toolbar?
@@ -227,9 +280,10 @@ var layout = {
     },
     init: function(){
         layout.getOptions();
-        layout.ConfigAllSortables();
+        
         layout.buttonBinding();
         layout.preloadLayout(sample);
+        layout.ConfigAllSortables();
     },
     buildNodeParent: $(".droppableContainer>ul"),
     preloadLayout: function(dat){
