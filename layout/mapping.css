@@ -1,0 +1,512 @@
+#assetPickerModal .loadTree ul li {
+    padding: 7px;
+    border: 1px solid #ddd;
+    padding-left: 45px;
+    cursor: pointer;
+}
+#assetPickerModal .loadTree ul li::before {
+    content: "\f046";
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#assetPickerModal .loadTree ul li.unselected::before {
+    content: "\f096";
+}
+
+#assetPickerModal .loadTree ul li:hover {
+    background: #eee;
+}
+
+#assetPickerModal .loadTree ul li a{
+    pointer-events: none;
+}
+
+#assetPickerModal .modal-body figure {
+    display: inline-block;
+    float: left;
+}
+
+#assetPickerModal .modal-body UL.jqueryFileTree A:hover {
+    background: transparent;
+}
+
+#assetPickerModal .modal-body figure a {
+    display: inline-block;
+    float: left;
+    margin: 0px;
+    border: 1px solid #fff;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+
+}
+#assetPickerModal .modal-body figure a .fa {
+    opacity: 0;
+    width: 100%;
+    text-align: center;
+    line-height:150px;
+    transition: all ease 0.3s;
+    position: relative;
+    top: -3px;
+    font-size: 3em;
+    color: #333;
+}
+
+#assetPickerModal .modal-body figure a.selected,
+#assetPickerModal .modal-body .grid-item.active  a {
+    border: 1px solid #ddd;
+    opacity: 0.8;
+}
+
+#assetPickerModal .modal-body figure a.selected .fa,
+#assetPickerModal .modal-body .grid-item.active  a .fa {
+    opacity: 1;
+    top: 0;
+        text-shadow: 1px 1px 1px #fff;
+}
+
+#assetPickerModal .modal-body .panel-heading .control-label {
+   width: auto;
+}
+#assetPickerModal .modal-body .panel-heading label {
+    display: block;
+}
+
+#assetPickerModal .modal-footer .btn {
+    color: #fff;
+}
+
+#assetPickerModal .modal-body .grid-item {
+    float: left;
+    display: inline-block;
+    width: 15%;
+    margin:.5%;
+}
+
+
+#assetPickerModal .modal-body .grid-item .panel-heading .control-label {
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+#assetPickerModal .modal-body .grid-item .panel-heading.active {
+    background-color: #e0d6ff;
+}
+
+#assetPickerModal .modal-body .grid-item .panel-body {
+    padding: 1px;
+}
+#assetPickerModal .modal-body .grid-item a{
+    width: 100%!important;
+
+}
+
+.asset-picker {
+    display: none;
+    position: fixed;
+    margin-top: -34px;
+    left: 300px;
+    width: 64%;
+    top: 150px;
+    box-shadow: 0px 5px 5px #333;
+    z-index: 85;
+}
+
+.asset-picker figure {
+    display: inline-block;
+    background: #333;
+    margin: 8px;
+}
+.asset-picker figure a {
+    display: block;
+    width: 150px;
+    height: 100px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    border: 2px solid #ccc;
+    text-align: center;
+}
+.asset-picker figure a i {
+    display: none;
+}
+
+.asset-picker figure a.selected {
+    border-color: #eee;
+    box-shadow: 0px 0px 25px #336688;
+}
+.asset-picker figure a.selected i {
+    display: block;
+    position: absolute;
+    font-size: 2em;
+    width: 100%;
+    top: 40px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #000;
+
+}
+.asset-display {
+   
+}
+.modal-body .btn {
+    color: #333;
+}
+
+
+.visibilityToggle {
+    right: 40px;
+    background: #eee;
+}
+.active.visibilityToggle {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    background: transparent;
+}
+
+.selected-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.selected-list .form-control {
+    background: #f7f7f7;
+}
+.selected-list a:link {
+    color: #333;
+}
+
+.layoutMapping section {
+    padding: 2em;
+    
+
+}
+#FolderAdminModalTitle .modal-title a {
+    position: fixed;
+}
+
+.jsonpreview {
+    position: fixed;
+     top: 90px;
+     left: 0px;
+     width:100%;
+     height: 61vh;
+     overflow: auto;
+     background: #000;
+     z-index: 88;
+
+}
+.jsonpreview a {
+    position: fixed;
+    top: 50px;
+    right: 0;
+}
+
+#FolderAdminModal .hero-content pre {
+    height: 50px;
+    overflow: hidden;
+    width: 500px;
+}
+
+.layoutModal .themer-row:first-child {
+    height: 15px;
+}
+#LayoutMappingSelector {
+    display: none;
+}
+
+.background-selector .disabled {
+    display: inherit;
+}
+
+.layout-preview-wrapper section {
+    margin-bottom: 10px;
+    background: #eee;
+}
+
+.layoutMapping #hero {
+    background-color: #000;
+    color: #ddd;
+    min-height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.layoutMapping section h2 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.layoutMapping section {
+  
+    background-size: contain;
+   
+}
+
+.layoutMapping .grids .grid-item2 a {
+    display: block;
+    height: 150px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.layoutMapping .tab-content .tab-pane {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+.layoutMapping .tab-content-container .container {
+    padding-top: 0px;
+}
+.layoutMapping .nav-container .container {
+    padding-bottom: 0px;
+}
+.layoutMapping section .panel {
+    color: #333;
+    margin-bottom: 0;
+    box-shadow: 0 1px 13px #000;
+    flex: 1 100%;
+
+    transition: all ease .3s;
+}
+
+.layoutMapping .theme-options section .panel.asset-picker {
+    box-shadow: 0 1px 13px #000;
+    
+}
+
+.layoutMapping .theme-options section hr {
+    border-color: #ccc;
+}
+.layoutMapping .theme-options section .panel.asset-picker .asset-display {
+    display: block!important;
+}
+
+.layoutMapping section .panel-footer .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.layout-preview-wrapper .container {
+    width: 100%;
+    padding: 1em;
+}
+
+.layoutMapping .custom-options h3 {
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+}
+.layoutMapping .custom-options {
+    padding: 10px;
+    background: #fff;
+}
+
+    .theme-options .panel-heading {
+         position: relative;
+     }
+    .theme-options .panel-heading .btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0;
+    border-left-width: 1px;
+    border-radius: 0;
+    background-color: transparent;
+    height: 40px;
+}
+
+    .theme-options .btn .fa {
+        transition: all ease 0.2s;
+    }
+    .theme-options .btn.inverse .fa {
+        transform: rotate(180deg);
+        margin-top: 7px;
+    }
+.layoutMapping .sublabel {
+    font-weight: normal;
+    margin-left: 15px;
+}
+
+
+.layoutModal .modal-dialog {
+    width: 96%;
+}
+
+.theme-options .panel-heading .btn.visibilityToggle {
+    right: 39px;
+}
+
+
+.layoutModal .theme-options {
+    background: #eee;
+}
+.layoutModal .theme-options section {
+    padding: 0;
+    background:#fff;
+    height: auto; 
+    min-height: 1px;
+}
+.layoutModal .theme-options section .panel {
+    box-shadow: none;
+}
+
+
+.layoutModal  .newbread {
+     border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    box-shadow: 0px 0px 5px #000;
+     background: #222;
+    color: #555;
+    padding: 5px;
+    box-shadow: none;
+}
+.layoutModal .sub-navbar-brand {
+    border-right: 1px solid #999;
+}
+
+.layoutModal  .newbread .btn {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 5px 9px;
+    color: #777;
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+.layoutModal  .newbread .btn:hover {
+    background: #111;
+    color: #999;
+}
+
+.layoutModal .themer-row {
+    display: flex;
+}
+.layoutModal .themer-row.main {
+    height: 60vh;
+}
+
+.themer-options-wrapper {
+    flex: 1 400px; 
+    width: 400px; 
+    min-width: 400px; 
+    max-width: 400px; 
+    overflow: auto; 
+    margin-right: 5px;
+}
+.themer-layout-wrapper {
+    flex: 1 auto;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+
+.layoutMapping section .heading {
+    display: none;
+}
+.layoutMapping section .heading.enabled {
+    display: block;
+}
+
+
+.layoutMapping.site-wrap.marketing .swiper-container {
+    height: 200px;
+    position: static;
+}
+.layoutMapping.site-wrap.marketing .swiper-wrapper {
+    height: 180px;
+    position: static;
+}
+
+.layoutMapping.site-wrap.marketing .swiper-container img {
+    width: 100%;
+}
+
+.layoutMapping .swiper-container-horizontal>.swiper-pagination-bullets {
+    margin: auto;
+    text-align:center;
+}
+.layoutMapping #carousel {
+    position: relative;
+}
+
+.layoutMapping .framey {
+    width: 100%;
+    height: 200px;
+}
+
+.layoutMapping .theme-options a,
+.layoutMapping .theme-options a:link,
+.layoutMapping .theme-options a:visited {
+    color: #333;
+}
+
+.layoutMapping .theme-options a.removeBtn ,
+.layoutMapping .theme-options a.removeBtn :link,
+.layoutMapping .theme-options a.removeBtn :visited {
+    color: #fff;
+}
+
+.layoutMapping .theme-options .asset-picker figure a:link,
+.layoutMapping .theme-options .asset-picker figure a,
+.layoutMapping .theme-options .asset-picker figure a:visited,
+.layoutMapping .theme-options .asset-picker figure a:active,
+.layoutMapping .theme-options .asset-picker figure a:hover {
+    color: orange;
+}
+.layoutMapping .theme-options .asset-picker figure a:hover  {
+    opacity: 0.8;
+}
+
+.layoutMapping .grid-item2 {
+    margin-bottom: 20px;
+}
+.layoutMapping .grid-item2 img {
+    width: 100%;
+}
+
+.layoutMapping .folder-preview {
+    background: #ddd;
+    text-align: center;
+    padding: 2em;
+    margin-bottom: 1em;
+}
+
+.theme-options.ui-sortable .ui-state-highlight {
+    height: 40px;
+    background: aliceblue;
+}
+.theme-options.ui-sortable .panel-heading {
+    cursor: move;
+}
+
+.panel.panel-default.theme-options.ui-sortable:hover::before {
+    content: "::";
+    display: inline-block;
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 10px;
+    z-index: 8989;
+    line-height: 38px;
+    font-weight: bold;
+}
+
+.marketing .globalOpts .input-group-addon i {
+    height: auto;
+}
+.marketing .input-group-addon i {
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+
+.mappifier {
+    z-index: 99999999;
+    position: fixed;
+    top: 0;
+    left: 0
+}

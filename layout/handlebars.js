@@ -2,6 +2,20 @@
 /* @author: Corbin Rose
 */
 
+ var allsections = [
+           "hero",
+           "custom_hero",
+           "buttons",
+           "custom_html",
+           "carousel",
+           "tabs",
+           "assets",
+           "social",
+           "folders",
+           "footer",
+           "no_access"
+        ];
+        
 var hb = {
     data: null,
     cssString: "",
@@ -1254,7 +1268,7 @@ var hb = {
                     // Pass our data to the template
 
                     var theCompiledHtml = theTemplate(context);
-                    console.log("loading all", theCompiledHtml);
+                    //console.log("loading all", theCompiledHtml);
                     
                     // Add the compiled html to the page
                     $('#assets .grid').html(theCompiledHtml);
@@ -1455,6 +1469,7 @@ var hb = {
             $bg.attr("id", idx + "_bg_" + index);
 
             //console.log("making color picker")
+            /*
             $("#" + idx + "_text_" + index).colorpicker({
                 format: 'hex',
 
@@ -1467,6 +1482,7 @@ var hb = {
             }).on('colorpickerChange colorpickerCreate', function (e) {
                 updateColor(e);
             });
+            */
         
 
         

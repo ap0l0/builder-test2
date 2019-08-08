@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css"/>
 	<link rel="stylesheet" href="core.css" />
 	<link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="mapping.css" />
 	<link rel="stylesheet" href="swiper-custom.css" />
 	<style id="customCSS" type="text/css"></style>
 	<style>
@@ -32,7 +33,7 @@
 </head>
 <body>
 
-	<div class="site-wrap marketing">
+	<div class="site-wrap marketing edit">
 
 		<nav class="navbar main-navbar navbar-default" id="admin-navbar">
 
@@ -157,6 +158,33 @@
 
 						</div>
 				</div>
+                 <div class="themer-options-wrapper hidden">
+                <input type="hidden"  value="" id="ultimateJSON"/>
+                <div class="theme-option-float">
+                    <div class="button-row">
+                        <div class="addBtn hidden">
+                            <button class="btn btn-default disabled">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="infoBtn ">
+                            <button class="btn btn-default" data-toggle="modal" data-target="#tutorialModal">
+                                <i class="fa fa-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="actionBtns text-right">
+                            <div class="btn-group">
+                                <a href="javascript:;" class="btn btn-success saveAll"><i class="fa fa-check"></i></a>
+                                <a href="javascript:;" class="btn btn-danger clearAll"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="theme-options-holder">
+                        <div class="theme-option-sections"></div>
+                    </div>
+                </div>
+            </div>
 			</article>
 		</main>
 	</div>
@@ -1557,12 +1585,17 @@
   <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 
 <script src="handlebars.js"></script>
 <script>
 	var isMedia = false;
-	var edit=false;
+	var edit=true;
 	var FolderImage = "https://picsum.photos/200";
 hb.initHandleBars();
 	</script>

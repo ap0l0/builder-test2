@@ -1256,7 +1256,8 @@ code#data {
          flex: 1 80%;
      }
      .themer-options-wrapper {
-         width: 400px;
+         min-width: 400px;
+         background-color: #fff;
      }
      .themer-options-wrapper aside {
          padding: 5px;
@@ -1287,6 +1288,7 @@ code#data {
          position: fixed;
          width: 400px;
          height: 90vh;
+         top: 51px;
          overflow: auto;
      }
      .background-input {
