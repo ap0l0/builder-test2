@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-translate-customization" content="2b4bd1c495140789-38d576b19769d098-g14813c245c3ff107-e">
+    <title>Drag and Drop Form</title>
+    
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" />
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css"/>
+	<link rel="stylesheet" href="core.css" />
+	<link rel="stylesheet" href="base.css" />
+	<link rel="stylesheet" href="swiper-custom.css" />
+	<style id="customCSS" type="text/css"></style>
+<style>
+  .draggable,.ui-draggable-dragging { 
+  	background: #eee;
+  	cursor: move;
+  }
+  .ui-draggable-dragging {
+  	z-index: 67;
+  	width: 100px;
+  	cursor: move;
+  }
+  #droppablemain { 
+  	padding: 0em; 
+  	background: #ccc;
+  	min-height: 100vh;
+  }
+  .initial  {
+  	padding: 5px;
+  }
+  .list-group.heading {
+  	margin: 0;
+  }
+  .list-group.heading li {
+  	border-bottom-right-radius: 0;
+  	border-bottom-left-radius: 0;
+  	background: #eee;
+  }
+  .AvailableToolbars li:first-child {
+  	border-top-left-radius: 0;
+  	border-top-right-radius: 0;
+  	margin-top: -1px;
+  }
+  
+  </style>
+</style>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+	<div class="col-sm-3 elements">
+<ul class="list-group heading">
+<li class="list-group-item">Layout Elements</li>
+</ul>
+<ul class="AvailableToolbars  list-group">
+<li class="list-group-item AvailableToolbar ui-sortable-handle" toolbarcode="remove_dormant">
+    <a class="ShowOnUse btn btn-default default-sm mover">
+        <i class="fa fa-arrows-v"></i>
+        <img src="/Images/Move.png" style="width:16px;" class="hidden">
+    </a>
+    <i class="fa fa-arrows-alt"></i>
+    <span class="ShowOnAvail">Row</span>
+    
+    <input type="text" class="ValueBox ShowOnUse" style="display:none;" value="Remove Dormant" onchange="LabelChanged(this);">
+    <a onclick="RemoveMenuItem(this);" href="javascript:;" class="ShowOnUse btn btn-default btn-sm">
+        <i class="fa fa-times text-danger"></i>
+    <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+    </a>
+  </li>
+</ul>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<strong>Layout</strong>
+			</li>
+			<li id="row" class="list-group-item ui-widget-content draggable">
+
+		  		<p><i class="fa fa-arrows-alt"></i> Row</p>
+			</li>
+			
+
+			<li class="list-group-item">
+				<strong>Elements</strong>
+			</li>
+		<li id="image" class="list-group-item ui-widget-content draggable">
+
+		  <p><i class="fa fa-arrows-alt"></i> Responsive Image</p>
+		</li>
+		<li id="html" class=" list-group-item ui-widget-content draggable">
+		  <p><i class="fa fa-arrows-alt"></i> Custom HTML</p>
+		</li>
+		</ul>
+ 	</div>
+
+ 	<div class="col-sm-9 layout">
+		<div id="droppablemain" class="droppable ui-widget-header ui-sortable sortableWrapper">
+  			<div class="initial ui-state-default">Drop here</div>
+
+  			<ul class="SaveDataContainer VisibleToolbarList ToolbarItem ui-sortable" auth="admin" foldername="needs-approval">
+                                                    <li class="ui-sortable-handle ItemUpdated" toolbarcode="menugroup1">
+                                                        <input type="hidden" class="Data_ID" value="48">
+                                                        <input type="hidden" class="Data_Sort" value="-0.7">
+                                                        <input type="hidden" class="Data_Visible" value="1">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Actions" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                            <ul class="VisibleToolbarList ToolbarItem ui-sortable">
+                                                                        <li class="ui-sortable-handle ItemUpdated">
+                                                                            <input type="hidden" class="Data_ID" value="11">
+                                                                            <input type="hidden" class="Data_Sort" value="-0.8">
+                                                                            <input type="hidden" class="Data_Visible" value="1">
+                                                                            <input type="hidden" class="Data_Modified" value="1">
+
+                                                                            <a href="#" class="btn btn-default btn-sm mover">
+                                                                                    <i class="fa fa-arrows-v"></i>
+                                                                                    <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                                                </a>
+                                                                            <input type="text" class="ValueBox" value="Authorize w/ Edits" onchange="LabelChanged(this);">
+                                                                            <a onclick="RemoveMenuItem(this);" class="btn btn-default btn-sm">
+                                                                                <i class="fa fa-times text-danger"></i>
+                                                                            <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                                            </a>
+                                                                        </li><li class="ui-sortable-handle ItemUpdated" toolbarcode="talent" style="display: flex;">
+                                <input type="hidden" class="Data_ID" value="2">
+                                <input type="hidden" class="Data_Sort" value="-1">
+                                <input type="hidden" class="Data_Visible" value="1">
+                                <input type="hidden" class="Data_Modified" value="1"> 
+
+                                <span class="ShowOnAvail" style="display: none;">Talent</span>
+                                <a class="ShowOnUse btn btn-default default-sm mover" style="">
+                                    <i class="fa fa-arrows-v"></i>
+                                    <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                </a>
+                                <input type="text" class="ValueBox ShowOnUse" style="" value="Talent" onchange="LabelChanged(this);">
+                                <a onclick="RemoveMenuItem(this);" href="javascript:;" class="ShowOnUse btn btn-default btn-sm" style="">
+                                    <i class="fa fa-times text-danger"></i>
+                                <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                </a>
+                            </li>
+                                                            </ul>
+                                                    </li>
+                                                    
+                                                    <li class="ItemUpdated ui-sortable-handle" toolbarcode="reject">
+                                                        <input type="hidden" class="Data_ID" value="10">
+                                                        <input type="hidden" class="Data_Sort" value="2">
+                                                        <input type="hidden" class="Data_Visible" value="1">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Decline" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                    </li><li class="ItemUpdated ui-sortable-handle" toolbarcode="approve" style="">
+                                                        <input type="hidden" class="Data_ID" value="3">
+                                                        <input type="hidden" class="Data_Sort" value="1">
+                                                        <input type="hidden" class="Data_Visible" value="1">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Authorize" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ItemUpdated ui-sortable-handle" toolbarcode="save_project">
+                                                        <input type="hidden" class="Data_ID" value="44">
+                                                        <input type="hidden" class="Data_Sort" value="4">
+                                                        <input type="hidden" class="Data_Visible" value="1">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Save" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ItemUpdated ui-sortable-handle" toolbarcode="refresh">
+                                                        <input type="hidden" class="Data_ID" value="20">
+                                                        <input type="hidden" class="Data_Sort" value="5">
+                                                        <input type="hidden" class="Data_Visible" value="1">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Refresh" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ItemDeleted ItemUpdated ui-sortable-handle" toolbarcode="change_property">
+                                                        <input type="hidden" class="Data_ID" value="34">
+                                                        <input type="hidden" class="Data_Sort" value="99">
+                                                        <input type="hidden" class="Data_Visible" value="0">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Change Property" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ItemDeleted ItemUpdated ui-sortable-handle" toolbarcode="change_company">
+                                                        <input type="hidden" class="Data_ID" value="24">
+                                                        <input type="hidden" class="Data_Sort" value="99">
+                                                        <input type="hidden" class="Data_Visible" value="0">
+                                                        <input type="hidden" class="Data_Modified" value="1">
+
+                                                        <a href="#" class="btn btn-default btn-sm mover">
+                                                            <i class="fa fa-arrows-v"></i>
+                                                            <img src="/Images/Move.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                        
+                                                        <input type="text" class="ValueBox" value="Change Company" onchange="LabelChanged(this);">
+                                                        <a onclick="RemoveMenuItem(this);" href="javascript:;" class="btn btn-default btn-sm">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        <img src="/Images/Delete.png" style="width:16px;" class="hidden">
+                                                        </a>
+                                                    </li>
+                                    </ul>
+
+		</div>
+
+	</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js" ></script>
+<script src="data2.js"></script>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+
+<script src="dragdrop.js"></script>
+</body>
+</html>
