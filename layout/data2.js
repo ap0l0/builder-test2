@@ -4,7 +4,7 @@ var data = {
   "folderId": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
   "sections": [
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "edfa4697-f493-4440-9a64-c6c8423f752b",
       "ViewID": "global",
       "SectionType": "global",
       "Show": false,
@@ -28,7 +28,7 @@ var data = {
     },
     
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "sectionGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
       "ViewID": "hero_1267",
       "SectionType": "hero",
       "Show": true,
@@ -66,10 +66,10 @@ var data = {
       }
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "f84331cb-cfed-4489-bceb-6fd4c7dd1f69",
       "ViewID": "folders",
       "Layout": "folders",
-      "Show": true,
+      "Show": false,
       "Align": "left",
       "HasHeading": true,
       "LayoutTitle": "Folders here!",
@@ -97,7 +97,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "246edf5b-5b98-41ab-9eec-e12a0e6fbe43",
       "ViewID": "custom_hero_4534",
       "CustomClasses": "custom_hero",
       "Show": true,
@@ -129,7 +129,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "f921408e-d67c-48c0-8fd5-d88a7b77cafc",
       "ViewID": "assets",
       "Show": true,
       "Align": "left",
@@ -160,7 +160,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "69473cba-7c6d-4c9a-b01f-18fd3bf541e3",
       "ViewID": "tabs",
       "Show": true,
       "Align": "left",
@@ -205,7 +205,7 @@ var data = {
       ]
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "9bff7cb6-d38b-4340-8d67-9958c602c365",
       "ViewID": "social_123",
       "Show": true,
       "Align": "left",
@@ -241,7 +241,7 @@ var data = {
     },
 
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "c027693e-4d2a-4d08-a051-03cb80516953",
       "ViewID": "social_456",
       "Show": true,
       "CustomClasses": "cattastic",
@@ -249,7 +249,7 @@ var data = {
       "HasHeading": true,
       "LayoutTitle": "Cattastic",
       "LayoutDescription": "",
-      "CustomCSS": ".cat-text {order:1; flex: 1 50%} .embedded {order:2; flex: 1 50%} section.cattastic .content-wrapper > .content {display: flex!important;} .content> * {padding:2em;} .cattastic .content {background: rgba(0,0,0,0.4);}",
+      "CustomCSS": ".cat-text {order:1; flex: 1 50%} .embedded {order:2; flex: 1 50%} section.cattastic .content-wrapper > .content {display: flex!important;} .cattastic .content> * {padding:2em;} .cattastic .content {background: rgba(0,0,0,0.4);}",
       "Background": {
         "source": "https://wallpaperplay.com/walls/full/8/2/b/72402.jpg",
         "size": "cover",
@@ -275,7 +275,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "dff7b9e0-f0d0-4ed3-ae45-bcc18f983124",
       "ViewID": "carousel",
       "Show": true,
       "CustomClasses": "carousel",
@@ -325,7 +325,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "e8eea5ac-ef80-42b7-9b0e-54f1862069bc",
       "ViewID": "buttons",
       "Show": true,
       "Align": "center",
@@ -378,7 +378,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "a4a972b8-45cf-4b7c-9036-b13f694c9a18",
       "ViewID": "custom_html",
       "Show": true,
       "Align": "left",
@@ -406,7 +406,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "c7ba39d0-2ba8-4763-800e-167447f5a983",
       "ViewID": "footer",
       "Show": false,
       "Align": "left",
@@ -433,7 +433,7 @@ var data = {
       "TabList": []
     },
     {
-      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "SectionGUID": "1a352e59-92e9-45c8-b6bd-82ed19aca280",
       "ViewID": "no_access",
       "Show": true,
       "Align": "left",

@@ -8,6 +8,7 @@ var cr = {
 			cr.wrapper = options.wrapper;
 		}
 		cr.build();
+		cr.editMode();
 	},
 	build: function(){
 		console.log(cr.data);
@@ -34,6 +35,7 @@ var cr = {
 
 					var $newSection = $(document.createElement("section"));
 					$newSection.addClass("initial").attr("id", viewid);
+					$newSection.attr("sectionguid", thisSection.SectionGUID)
 					cr.baseStyles($newSection, thisSection);
 					if(thisSection.CustomClasses){
 						console.log("custom: ", thisSection.CustomClasses)
@@ -128,6 +130,20 @@ var cr = {
 		return isImageOnly;
 	},
 	widgets: {
+		blank: function(){
+			return '<div class="container"><div class="content-wrapper"><div class="title blank"><h2>Enter A Heading</h2></div><div class="description blank"><p>And a subtitle</p></div><div class="content"></div></div></div>';
+		},
+		new: function(section, dataObj){
+			console.log("new section");
+			var template = "<div class='container'><h2>New Section</h2><div class='row'>";
+			//$(section).addClass("initial");
+			template += "<div class='col-sm-4'><a href='#' class='sectionType' data-type='CustomHtml'><i class='fa fa-code'></i> Custom Html</a></div>";
+			template += "<div class='col-sm-4'><a href='#' class='sectionType' data-type='banner'><i class='fa fa-picture-o'></i> Image Banner</a></div>";
+			template += "<div class='col-sm-4'><a href='#' class='sectionType' data-type='iframe'><i class='fa fa-youtube'></i> Media</a></div>";
+			template += "</div></div>";
+			$(section).html(template);
+
+		},
 		folders: function(section, dataObj){
 			$(section).find(".content").append("folder");
 		},
@@ -181,20 +197,37 @@ var cr = {
 			$(section).find(".container").prepend("<img src=" + FolderImage + " />");
 		},
 		CustomHtml: function(section, dataObj){
-			$(section).find(".content").append(dataObj.CustomHtml)
+			if(dataObj.CustomHtml.blank){
+				var content = "<strong>Enter Custom HTML</strong><br /><textarea class='form-control CustomHtml'>Enter your html</textarea>";
+			} else {
+				var content = dataObj.CustomHtml;
+			}
+			$(section).find(".content").append(content);
+		},
+		banner: function(section, dataObj){
+			if(dataObj.banner.blank){
+				var content = "Add Image +";
+			} else {
+				var content = "load the image";
+			}
+			$(section).find(".content").append(content);
 		},
 		iframe: function(section, dataObj){
 			var iframeOpts = dataObj.iframe;
-			if(iframeOpts.embed){
-				$(section).find(".content").append("<div class='embedded'>" + iframeOpts.embed + "</div>");
+			if(iframeOpts.blank){
+				$(section).find(".content").append("load iframe")
 			} else {
-				var $iframe = $(document.createElement("iframe"));
-				$iframe.attr("src", iframeOpts.IframeSrc);
-				$iframe.attr("frameborder", "0");
-				$iframe.attr("height", iframeOpts.IframeHeight);
-				$iframe.attr("width", iframeOpts.IframeWidth);
-				//$iframe.width("100%")
-				$(section).find(".content").append($iframe);
+				if(iframeOpts.embed){
+					$(section).find(".content").append("<div class='embedded'>" + iframeOpts.embed + "</div>");
+				} else {
+					var $iframe = $(document.createElement("iframe"));
+					$iframe.attr("src", iframeOpts.IframeSrc);
+					$iframe.attr("frameborder", "0");
+					$iframe.attr("height", iframeOpts.IframeHeight);
+					$iframe.attr("width", iframeOpts.IframeWidth);
+					//$iframe.width("100%")
+					$(section).find(".content").append($iframe);
+				}
 			}
 		},
 		carousel: function(section, dataObj){
@@ -316,4 +349,91 @@ var cr = {
             
         }
 	},
+	uuidv4:function() {
+	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+	    return v.toString(16);
+	  });
+	},
+	getTimeStamp: function(){
+		var t = new Date();
+		return t.getTime();
+	},
+	addAddButton: function(section){
+		var $add = $(document.createElement("div"));
+		$add.addClass("add");
+		var $addButton = $(document.createElement("a"));
+		$addButton.addClass("btn btn-default");
+		$addButton.html("<i class='fa fa-plus'></i>");
+		$add.append($addButton);
+		$(section).append($add);
+	},
+	editMode: function(){
+		if(edit==true){
+			$(".layoutMapping section").each(function(){
+				cr.addAddButton($(this));
+			});
+			$(document).on("click", ".sectionType", function(e){
+				e.preventDefault();
+				var whichType = $(this).attr("data-type");
+				//alert("change type in array");
+				var $sect = $(this).closest("section")
+				var guid = $sect.attr("sectionguid");
+				for(var k=0; k<data.sections.length; k++){
+					if(data.sections[k].SectionGUID == guid){
+						data.sections[k].Layout = whichType;
+						
+						console.log("loading", "cr.widget['" + whichType + "']");
+						data.sections[k][whichType] = {
+							"blank": true
+						};
+						var content = cr.widgets.blank();
+						$sect.html(content);
+						cr.addAddButton($sect);
+						cr.widgets[whichType]($sect, data.sections[k]);
+					}
+				}
+			});
+			$(document).on("click", ".add a", function(){
+				
+				var $thisSection = $(this).closest("section");
+				var prevGUID = $thisSection.attr("sectionguid");
+
+				var index = 0;
+				var newguid = cr.uuidv4();
+				var item = {
+					"SectionGUID": newguid,
+					"ViewID": "new_" + cr.getTimeStamp(),
+					"Show": true,
+					"Align": "left",
+				    "HasHeading": true,
+				    "CustomClasses": "new",
+				    "Layout": "new",
+				    "LayoutTitle": "New Section",
+				    "LayoutDescription": "",
+				    "CustomCSS": "." + newguid + " {}",
+				};
+
+				var newSection = "<section sectionguid='" + item.SectionGUID + "'>New Section</section>";
+				
+				$(newSection).insertAfter($thisSection);
+				var target = $(".layoutMapping section[sectionguid='" + item.SectionGUID + "']");
+				//console.log("target", target)
+				cr.widgets["new"](target, item);
+
+				var sects = data.sections;
+				for (var i = 0; i <sects.length; i++) {
+					var thisRow = sects[i];
+					var guid = thisRow.SectionGUID;
+					//console.log(guid);
+					if(guid == prevGUID){
+						index = i;
+					}
+				}
+				data.sections.splice(index, 0, item);
+
+				console.log(data);
+			});
+		}
+	}
 }
