@@ -38,7 +38,7 @@ var data = {
       "Layout": "hero",
       "LayoutTitle": "wild-cats-of-the-world",
       "LayoutDescription": "",
-      "CustomCSS": ".hero.default {margin-top: 53px;}",
+      "CustomCSS": ".hero.default {padding-top: 83px}",
       "Background": {
         "source": "",
         "size": "contain",
@@ -68,7 +68,8 @@ var data = {
     {
       "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
       "ViewID": "folders",
-      "Show": false,
+      "Layout": "folders",
+      "Show": true,
       "Align": "left",
       "HasHeading": true,
       "LayoutTitle": "Folders here!",
@@ -222,12 +223,48 @@ var data = {
         "text": "#ffffff"
       },
       "CustomHero": "",
-      "Layout": "iframe,CustomHtml",
-      "CustomHtml": "iframe above",
+      "Layout": "iframe",
+      "CustomHtml": "<hr />",
       "ImageList": [],
       "iframe": {
         "IframeSrc": "https://www.youtube.com/embed/x5wS0kvYZb8",
-        "IframeHeight": "400"
+        "IframeHeight": "400",
+        "IframeWidth": "600"
+      },
+      "SectionOpts": {
+
+      },
+      "ButtonList": [],
+      "FolderList": [],
+      "FooterLinksList": [],
+      "TabList": []
+    },
+
+    {
+      "FolderGUID": "65ab4586-9066-4adc-9786-bd6fe5c507c6",
+      "ViewID": "social_456",
+      "Show": true,
+      "CustomClasses": "cattastic",
+      "Align": "right",
+      "HasHeading": true,
+      "LayoutTitle": "Cattastic",
+      "LayoutDescription": "",
+      "CustomCSS": ".cat-text {order:1; flex: 1 50%} .embedded {order:2; flex: 1 50%} section.cattastic .content-wrapper > .content {display: flex!important;} .content> * {padding:2em;} .cattastic .content {background: rgba(0,0,0,0.4);}",
+      "Background": {
+        "source": "https://wallpaperplay.com/walls/full/8/2/b/72402.jpg",
+        "size": "cover",
+        "repeat": "repeat",
+        "position": "top left",
+        "attachment": "scroll",
+        "color": "#000000",
+        "text": "#ffffff"
+      },
+      "CustomHero": "",
+      "Layout": "iframe,CustomHtml",
+      "CustomHtml": "<div class='cat-text'>The cat (Felis catus) is a small carnivorous mammal.[1][2] It is the only domesticated species in the family Felidae and often referred to as the domestic cat to distinguish it from wild members of the family.[4] The cat is either a house cat or a farm cat, which are pets, or a feral cat, which ranges freely and avoids human contact.[5] A house cat is valued by humans for companionship and for its ability to hunt rodents. About 60 cat breeds are recognized by various cat registries.[6] Cats are similar in anatomy to the other felid species, with a strong flexible body, quick reflexes, sharp teeth and retractable claws adapted to killing small prey. They are predators who are most active at dawn and dusk (crepuscular). Cats can hear sounds too faint or too high in frequency for human ears, such as those made by mice and other small animals. Compared to humans, they see better in the dark (they see in near total darkness) and have a better sense of smell, but poorer color vision. Cats, despite being solitary hunters, are a social species. Cat communication includes the use of vocalizations including meowing, purring, trilling, hissing, growling and grunting as well as cat-specific body language.[7] Cats also communicate by secreting and perceiving pheromones.[8]</div>",
+      "ImageList": [],
+      "iframe": {
+        "embed": '<iframe width="560" height="315" src="https://www.youtube.com/embed/hY7m5jjJ9mM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
       },
       "SectionOpts": {
 

@@ -128,6 +128,9 @@ var cr = {
 		return isImageOnly;
 	},
 	widgets: {
+		folders: function(section, dataObj){
+			$(section).find(".content").append("folder");
+		},
 		assets: function(section, dataObj){
 			var template = "<div class='grid'><div class='row'></div></div>";
 			var num = 37;
@@ -182,12 +185,17 @@ var cr = {
 		},
 		iframe: function(section, dataObj){
 			var iframeOpts = dataObj.iframe;
-			var $iframe = $(document.createElement("iframe"));
-			$iframe.attr("src", iframeOpts.IframeSrc);
-			$iframe.attr("frameborder", "0");
-			$iframe.attr("height", iframeOpts.IframeHeight);
-			$iframe.width("100%")
-			$(section).find(".content").append($iframe);
+			if(iframeOpts.embed){
+				$(section).find(".content").append("<div class='embedded'>" + iframeOpts.embed + "</div>");
+			} else {
+				var $iframe = $(document.createElement("iframe"));
+				$iframe.attr("src", iframeOpts.IframeSrc);
+				$iframe.attr("frameborder", "0");
+				$iframe.attr("height", iframeOpts.IframeHeight);
+				$iframe.attr("width", iframeOpts.IframeWidth);
+				//$iframe.width("100%")
+				$(section).find(".content").append($iframe);
+			}
 		},
 		carousel: function(section, dataObj){
 

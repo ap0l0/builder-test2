@@ -37,6 +37,7 @@
     -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(250, 250, 250, 0.2)));
     width: auto!important;
     }
+    .section-wrapper .layoutMapping>*:first-child{}
 </style>
 </head>
 <body>
@@ -66,7 +67,7 @@
                 
 
                     <li>
-                        <a href="javascript:;" class="btn btn-warning editMode">
+                        <a href="javascript:;" class="editMode">
                         <i class="fa fa-edit"> </i>
                             Toggle Edit Mode
                             <span class="short-text">
@@ -203,6 +204,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="create.js"></script>
 <script>
+
     var edit=false;
     var FolderImage = "https://picsum.photos/200";
     cr.init({
