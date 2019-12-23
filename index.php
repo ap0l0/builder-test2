@@ -23,9 +23,12 @@
 <div class="container-fluid">
 <div class="row">
 	<div class="col-sm-3 options">
-    <div class="btn btn-group">
+    <div class="btn btn-group optionRow">
       <button class="btn btn-success saveJSON" type="button">
         <i class="fa fa-check"></i> Save JSON
+      </button>
+      <button class="btn btn-default toggleEdit" type="button">
+        <i class="fa fa-eye"></i> Preview Mode
       </button>
     </div>
 		<ul class="list-group AvailableToolbars">
@@ -36,7 +39,7 @@
 
 <div class="droppableContainer">
 	<ul class="SaveDataContainer VisibleToolbarList ToolbarItem" auth="admin" foldername="needs-approval">
-	<?php include "sections.php"; ?>
+	<?php //include "sections.php"; ?>
   	</ul>                                            
 </div>
 

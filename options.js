@@ -103,21 +103,23 @@ var templates = {
         '</div>'+
     '</div>',
     html: "<textarea class='form-control htmlValue'></textarea>",
-    heading: "<input type='text' class='headingValue form-control' />"
+    heading: "<input type='text' class='headingValue form-control' />",
+    initial: "Add Content",
+    section: ""
 
 }
 
 var buildingBlocks = {
 	html: function(data) {
 		console.log("building html", data)
-		return "<li class='html AvailableToolbar'>" + data + "</li>";
+		return "<li class='html AvailableToolbar' data-type='html'>" + data + "</li>";
 	},
 	columns: function(data){
 		var cols = data;
 		var num = data.content.length;
 
 		console.log("columns", num ,cols)
-		var colString = "<li class='AvailableToolbar'><div class='row columns'>";
+		var colString = "<li class='AvailableToolbar columns' data-type='columns'><div class='row columns'>";
 		var className = "col-sm-6";
 		switch(num){
 			case 1: className="col-sm-12"; break;
@@ -158,6 +160,18 @@ var buildingBlocks = {
 		}
 		colString += "</div></li>";
 		return colString;
+	},
+	heading: function(data){
+		console.log("building heading");
+		return "<li class='heading AvailableToolbar' data-type='heading'><h2>" + data + "</h2></li>";
+	},
+	initial: function(data){
+		console.log("building initial section");
+		return "<li class='initial AvailableToolbar' data-type='initial'>Add Content</li>";
+	},
+	section: function(data){
+		console.log("building section");
+		return "<li class='AvailableToolbar section' data-type='section'>Section</li>"
 	}
 }
 
@@ -197,6 +211,10 @@ var options = {
 		"icon": "fa-header",
 		"content": templates.heading
 	},
+	"initial": {
+		"icon": "fa-globe",
+		"content": templates.initial
+	}
 };
 
 

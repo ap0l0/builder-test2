@@ -1,30 +1,6 @@
 
 var layout = {
-    checkForDups: function(){
-         var ids = [];
-        $(".options .AvailableToolbars li").each(function(){
-            var thisID = $(this).attr("data-id");
-            ids.push(thisID);
-        });
-
-        for (var i = 0; i < ids.length; i++){
-            for (var j = i + 1 ; j < ids.length; j++) {
-                if (ids[i]==ids[j]) { 
-                    // got the duplicate element 
-                    console.log("dup:",ids[i]);
-                    $(".options li[data-id='" + ids[i] + "']:last-child").remove()
-                } 
-            } 
-        }
-    },
-    populateOptions: function(type, data){
-        if(data!=null){
-            if(optionPopulation[type]){
-                optionPopulation[type](JSON.parse(data));
-            }
-        }
-        //console.log("populating options for", type, "with", data);
-    },
+    buildNodeParent: $(".droppableContainer>ul"),
     templateFunctions: {
         background: function(parent, buttonId, nodeId){
             $("#optionModal").attr("data-node", nodeId)
@@ -47,6 +23,41 @@ var layout = {
            
         }
     },
+    checkForDups: function(){
+         var ids = [];
+        $(".options .AvailableToolbars>li").each(function(){
+            var thisID = $(this).attr("data-id");
+            ids.push(thisID);
+        });
+        console.log("ids", ids)
+        for (var i = 0; i < ids.length; i++){
+            for (var j = i + 1 ; j < ids.length; j++) {
+                if (ids[i]==ids[j]) { 
+                    // got the duplicate element 
+                    //console.log("dup:",ids[i], ".options .AvailableToolbars>li[data-id='" + ids[i] + "']");
+                    var count = $(".options .AvailableToolbars>li[data-id='" + ids[i] + "']").size();
+                    var loopCount = 1;
+                    $(".options .AvailableToolbars>li[data-id='" + ids[i] + "']").each(function(){
+                        //console.log($(this).text(), count, loopCount)
+                        if(loopCount == count){
+                            console.log("equal");
+                            $(this).remove();
+                        }
+                        loopCount++;
+
+                    });
+                } 
+            } 
+        }
+    },
+    populateOptions: function(type, data){
+        if(data!=null){
+            if(optionPopulation[type]){
+                optionPopulation[type](JSON.parse(data));
+            }
+        }
+        console.log("populating options for", type, "with", data);
+    },
     buttonBinding: function(){
         $(document).on("click", "a.removeItem", function(){
             var $sect = $(this).closest(".AvailableToolbar");
@@ -68,6 +79,24 @@ var layout = {
         });
         $(document).on("click", "button.saveJSON", function(){
             layout.updateJSON();
+        });
+        $(document).on("change", "select.colNum", function(){
+            var num = $(this).val();
+            var $sect = $(this).closest(".AvailableToolbar");
+            var $tar = $sect.find(".columnWrapper");
+            // find data in json? 
+            // or create a new data obj to pass
+            var dat = {
+                type: "columns",
+                id: $sect.attr("id")+"_sub",
+                options: "{'num':" + num + "}",
+                content: {
+                    
+                }
+            }
+            layout.buildSection(dat,$tar, true)
+            //$tar.append("<div class='col-sm-12'>update to " + num + " columns</div>");
+
         });
         $(document).on("click", "button.saveModal", function(){
             var type = $(this).closest(".modal").attr("data-type");
@@ -137,11 +166,12 @@ var layout = {
 
         $(".VisibleToolbarList").disableSelection();
     },
-    buildSection: function(data, parent){
+    buildSection: function(data, parent, edit){
         var type=data.type;
         var id = data.id;
         var options = data.options;
         
+        console.log(options)
         if(options[options.length-1] =="\""){
             
             options  = options.substring(0, options.length-1)
@@ -155,7 +185,9 @@ var layout = {
         console.log("data", data);
         $(parent).append(stringy);
         // make header
-        layout.getEditHeader(id, "section", data);
+        if(edit==false){
+            layout.getEditHeader(id, "section", data);
+        }
     },
     buildContent: function(id, data){
         var content = data.content;
@@ -231,7 +263,7 @@ var layout = {
                         var thisButton = buttons[key];
                         //console.log("button",thisButton);
                         if(thisButton["type"]=="select"){
-                            appendy += '<select class="form-control">';
+                            appendy += '<select class="form-control colNum">';
                             for(var q = 0; q<thisButton['options'].length; q++){
                                 var thisVal =thisButton['options'][q];
 
@@ -285,14 +317,13 @@ var layout = {
         layout.preloadLayout(sample);
         layout.ConfigAllSortables();
     },
-    buildNodeParent: $(".droppableContainer>ul"),
     preloadLayout: function(dat){
         console.log("loading ",dat.sections);
         var sects = dat.sections;
 
         for (var i=0; i<sects.length; i++) {
            var thisSect = sects[i];
-           layout.buildSection(thisSect, layout.buildNodeParent)
+           layout.buildSection(thisSect, layout.buildNodeParent, false)
         }
         
     },
