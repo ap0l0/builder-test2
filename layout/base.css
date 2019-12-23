@@ -38,6 +38,10 @@ body a:link.helperIcon {
     color: #336688
 }
 
+.addWrapper {
+    display: flex;
+}
+
 .site-wrap.marketing .video-carousel-wrapper {
 
 }

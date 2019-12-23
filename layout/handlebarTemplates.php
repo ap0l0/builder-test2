@@ -1,3 +1,4 @@
+
 <script id="custom_hero_options" type="text/x-handlebars-template">
     <div class="custom-options">
         <label>Custom Hero Type</label>
@@ -7,7 +8,7 @@
             <option value="image">Full-screen Image</option>
             {{/select}}
         </select>
-        <div class="row">
+         <div class="row">
             <div class="col-xs-6">
                 <label class="taller">Custom Hero</label>
             </div>
@@ -28,26 +29,8 @@
     </div>
 </script>
 <script id="custom_html_options" type="text/x-handlebars-template">
-    <div class="row">
-        <div class="col-xs-6">
-            <label class="taller">Custom HTML</label> 
-        </div>
-        <div class="col-xs-6">
-            <div class="addWrapper">
-                <select class="form-control addMediaType">
-                    <option value="video">Video</option>
-                    <option value="carousel">Carousel</option>
-                    <option value="image">Image</option>
-                </select>
-                <a href="javascript:void(0)" class="btn btn-default pull-right asset-picker-button" data-vals=""> <i class="fa fa-plus "></i></a>
-            </div>
-        </div>
-    </div>
-   
-    
-    <div class="htmlSection" data-id="custom_html">
-        <textarea class="form-control realTimeEditable section-customhtml" data-selector=".content" rows="5">{{props.CustomHtml}}</textarea>
-    </div>
+    <label>Custom HTML</label> 
+    <textarea class="form-control realTimeEditable section-customhtml" data-selector=".content" rows="5">{{props.CustomHtml}}</textarea>
 </script>
 <script id="carousel_options" type="text/x-handlebars-template">
     <div class="custom-options">
@@ -198,12 +181,12 @@
                 <option value="list">List Layout</option>
             {{/select}}
         </select>
-        <div class="row form-group ">
+        <div class="row form-group hidden">
             <div class="col-sm-12 multi">
                 <label>Source</label><br />
-                <a class="btn btn-default asset-picker-button folder" data-vals="{{props.SectionOpts.selected}}" href="javascript:void(0)">Show List <i class="fa fa-plus"></i></a>
+                <a class="btn btn-default asset-picker-button folder" data-vals="" href="#">Show List <i class="fa fa-plus"></i></a>
                 <br />
-                <div class="selected-list">
+                <div class="selected-list" style="display: none;">
                     <ul>
                         <li>
                             <div class="input-group">
@@ -302,11 +285,8 @@
 </script>
 <script id="no_access_options" type="text/x-handlebars-template">
     <label>No Access HTML</label>
-    <div class="htmlSection" data-id="no_access">
-        <textarea class="form-control realTimeEditable section-customhtml funky" data-selector=".content" rows="5">{{props.CustomHtml}}</textarea>
-    </div>
-    <label>Hide Default Hero</label>
-    <br />
+    <textarea class="form-control realTimeEditable section-customhtml funky" data-selector=".content" rows="5">{{props.CustomHtml}}</textarea>
+    <label>Hide Default Hero</label><br />
     {{#if props.SectionOpts.hideHero}}
     <input type="checkbox" class="hide-hero" checked="checked" />
     {{else}}
@@ -500,15 +480,6 @@
                <span>
                    {{id}} Options 
                </span>
-               <a href="javascript:;" class="helperIcon"
-                  data-id="{{id}}"
-                  data-placement="right"
-                  data-toggle="popover"
-                  data-trigger="hover"
-                  data-original-title="" title=""
-                  data-content="loading">
-                   <i class=" fa fa-question-circle-o"></i>
-               </a>
                {{#if props.Show}}
                 <button class="btn btn-default active visibilityToggle"><i class="fa fa-eye"></i></button>
                {{else}}
@@ -661,7 +632,7 @@
                                           {{#select props.Background.size}}
                                            <option value="contain">Stretch to Fit</option>
                                            <option value="cover">Stretch to Fill</option>
-                                           <option value="inherit">Actual Size</option>
+                                           <option value="inherit">Default</option>
                                            {{/select}}
 
                                        </select>
@@ -902,9 +873,9 @@
 <script id="assets_all_grid_partial_template" type="text/x-handlebars-template">
 
     <div class="col-sm-4 col-md-3">
-        <a class="openupdetails" href="{{detailsrc}}"
+        <a class="openupdetails" href="{{previewsrc}}"
            data-mediaid="{{mediaid}}"
-           style="background-image: url({{previewsrc}})"
+           style="background-image: url({{thumbsrc}})"
            data-content="{{content}}"
            data-protect="true"
            data-fancybox="group"
@@ -920,7 +891,7 @@
     </div>
 </script>
 <script id="tab_option_partial_template" type="text/x-handlebars-template">
-    <div class="panel panel-default" data-selector="{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}">
+    <div class="panel panel-default" data-selector="{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}">
         <div class="panel-heading editableTitle">
             <span>{{{title}}}</span>
 
@@ -931,17 +902,13 @@
             <input type="text"
                    class="form-control realTimeEditable titleContent section-tab-tabtext"
                    value="{{title}}"
-                   data-selector=".nav-tabs li:nth-child({{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}) a"
-                   name="tabText[{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}]" />
+                   data-selector=".nav-tabs li:nth-child({{#if index}}{{index}}{{else}}{{inc @index}}{{/if}})"
+                   name="tabText[{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}]" />
 
             <label>Content</label>
-            <div class="htmlSection" data-id="tabs_{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}">
-                <textarea type="text"
-                          class="form-control realTimeEditable section-tab-tabcontent"
-                          name="tabContent[{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}]">
-                    {{content}}
-                </textarea>
-            </div>
+            <textarea type="text"
+                      class="form-control realTimeEditable section-tab-tabcontent"
+                      name="tabContent[{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}]">{{content}}</textarea>
 
            
             <br />
@@ -951,7 +918,7 @@
 
 </script>
 <script id="button_option_partial_template" type="text/x-handlebars-template">
-    <div class="panel panel-default" data-selector="{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}">
+    <div class="panel panel-default" data-selector="{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}">
         <div class="panel-heading editableTitle">
             <span>{{title}}</span>
 
@@ -961,12 +928,12 @@
             <label>Text</label>
             <input type="text" class="form-control realTimeEditable titleContent section-button-text"
                    value="{{title}}"
-                   data-selector=".button-wrapper .btn:nth-child({{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}})"
-                   name="buttonText[{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}]" />
+                   data-selector=".button-wrapper .btn:nth-child({{#if index}}{{index}}{{else}}{{inc @index}}{{/if}})"
+                   name="buttonText[{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}]" />
 
             <label>Link</label>
             <input type="text" class="form-control section-button-link" 
-                   name="buttonLink[{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}]" 
+                   name="buttonLink[{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}]" 
                    value="{{link}}" />
 
             <label>Target</label>
@@ -985,7 +952,7 @@
 </script>
 <script id="footer_option_partial_template" type="text/x-handlebars-template">
 
-    <div class="panel panel-default" data-selector="{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}">
+    <div class="panel panel-default" data-selector="{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}">
         <div class="panel-heading editableTitle">
             <span>{{{title}}}</span>
 
@@ -995,12 +962,12 @@
             <label>Text</label>
             <input type="text" class="form-control realTimeEditable titleContent section-link-text"
                    value="{{title}}"
-                   data-selector=".footer-link:nth-child({{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}})"
-                   name="buttonText[{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}]" />
+                   data-selector=".footer-link:nth-child({{#if index}}{{index}}{{else}}{{inc @index}}{{/if}})"
+                   name="buttonText[{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}]" />
 
             <label>Link</label>
             <input type="text" class="form-control section-footer-link"
-                   name="footerLink[{{#if index}}{{index}}{{else}}{{inc @@index}}{{/if}}]"
+                   name="footerLink[{{#if index}}{{index}}{{else}}{{inc @index}}{{/if}}]"
                    value="{{link}}" />
 
             <label>Target</label>
@@ -1075,7 +1042,7 @@
             {{#if FolderList}}
             {{#each FolderList}}
             {{#if title}}
-            <div class="folder_hero row_{{@@index}}">
+            <div class="folder_hero row_{{@index}}">
                 <div class="container">
                     <a href="/app/dam/Marketing/Site/Index/{{id}}" style="color:{{../../Background.text}}">
                         {{#if title}}
@@ -1122,35 +1089,33 @@
                                 {{#if FolderList}}
                                 {{#each FolderList}}
                                 {{#if title}}
-                                    {{#if status}}
-                                    <div class="col-sm-12 col-md-6 col-lg-4 sub-shortcut-element-marketing">
+                                <div class="col-sm-12 col-md-6 col-lg-4 sub-shortcut-element-marketing">
 
-                                        <div class="panel-default panel">
-                                            <div class="panel-heading">
-                                                {{#if title}}
-                                                <span>{{title}}</span>
-                                                {{else}}
-                                                {{this}}
-                                                {{/if}}
-                                            </div>
-                                            <div class="panel-body" style="background-image:url(/{{FolderImage}})">
-                                                {{#if title}}
-                                                <a href="/app/dam/Marketing/Site/Index/{{id}}" style="color:{{../../Background.text}}">
-                                                    <span class="image-wrap">
-                                                        <img src="/{{FolderImage}}" height="150" />
-                                                    </span>
+                                    <div class="panel-default panel">
+                                        <div class="panel-heading">
+                                            {{#if title}}
+                                            <span>{{title}}</span>
+                                            {{else}}
+                                            {{this}}
+                                            {{/if}}
+                                        </div>
+                                        <div class="panel-body" style="background-image:url(/{{FolderImage}})">
+                                            {{#if title}}
+                                            <a href="/app/dam/Marketing/Site/Index/{{id}}" style="color:{{../../Background.text}}">
+                                                <span class="image-wrap">
+                                                    <img src="/{{FolderImage}}" height="150" />
+                                                </span>
 
-                                                </a>
-                                                <p class="descrip">{{description}}</p>
-                                                {{else}}
-                                                <i class="fa fa-spinner fa-spin"></i>
-                                                {{/if}}
-                                            </div>
-
+                                            </a>
+                                            <p class="descrip">{{description}}</p>
+                                            {{else}}
+                                            <i class="fa fa-spinner fa-spin"></i>
+                                            {{/if}}
                                         </div>
 
                                     </div>
-                                    {{/if}}
+
+                                </div>
                                 {{else}}
                                 <div class="col-sm-12 col-md-6 col-lg-4 sub-shortcut-element">
                                     <i class="fa fa-spinner fa-spin"></i>
@@ -1435,4 +1400,3 @@
         </div>
     </section>
 </script>
-

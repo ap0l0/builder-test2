@@ -189,8 +189,7 @@
 		</main>
 	</div>
 
-<script src="handlebarTemplates.js"></script>
-
+<?php include "handlebarTemplates.php"; ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js" ></script>
 <script src="data.js"></script>
