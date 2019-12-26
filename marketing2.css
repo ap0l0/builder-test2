@@ -65,16 +65,16 @@ span.title {
 	padding-left: 0;
 }
 
-.droppableContainer .background .panel-heading {
+.edit .droppableContainer .background .panel-heading {
 	background-color: rgba(255,255,255,0.4);
 	background-image: none;
 }
-.droppableContainer .background .AvailableToolbar  {
+.edit .droppableContainer .background .AvailableToolbar  {
 	background-color: rgba(255,255,255,0.3);
 }
 
 .droppableContainer .AvailableToolbar {
-	background-color: #fff;
+	
 }
 .panel {background-color: transparent;}
 

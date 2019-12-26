@@ -102,7 +102,7 @@ var sample = {
         "position": "center center",
         "attachment": "scroll",
         "color": "#ffffff",
-        "text": "pink"
+        "text": "#ffffff"
       },
       "CustomHero": "<div class=\"row\">\n \t<div class=\"col-sm-6\">\n \t\t\n \t\t<div class=\"preview\">\n \t\t\t<img src=\"https://picsum.photos/700/300\" class=\"main\" />\n \t\t\t<ul class=\"thumbs\">\n \t\t\t\t<li><img src=\"https://picsum.photos/170/100\" /></li>\n \t\t\t\t<li><img src=\"https://picsum.photos/173/101\" /></li>\n \t\t\t\t<li><img src=\"https://picsum.photos/170/101\" /></li>\n \t\t\t</ul>\n \t\t</div>\n \t</div>\n \t<div class=\"col-sm-6\">\n <div class=\"info\">\n \t\t<h1>Property Title</h1>\n \t\t<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit lacinia lectus, sit amet imperdiet est mattis ut. Pellentesque massa quam, lacinia a vestibulum at, maximus et felis. Integer eu justo vitae sem lacinia feugiat. Aenean nec dui condimentum leo pulvinar euismod. Sed congue aliquet tellus. Ut elementum pretium dui at tincidunt. Sed maximus lectus ex, a ullamcorper dolor blandit vitae. In aliquet quis risus vel convallis.</h3>\n \t\t<blockquote> \t\t\tNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... \t\t</blockquote>\n </div>\n \t</div>\n </div>",
       "CustomHtml": "",
@@ -125,7 +125,7 @@ var sample = {
       "HasHeading": true,
       "LayoutTitle": "Heading",
       "LayoutDescription": "",
-      "CustomCSS": "#custom_html {padding: 12em 2em; border-top: 4px solid orange; border-bottom: 4px solid orange;}\n#custom_html .content {flex: none!important; width: 60%;}",
+      "CustomCSS": "#custom_html .section-content {padding: 12em 2em;}#custom_html { border-top: 4px solid orange; border-bottom: 4px solid orange;}\n#custom_html .content {flex: none!important; width: 60%;}",
       "Background": {
         "source": "https://support-dam.mymediabox.com/$branding$/Marketing/mappify_20191115131407093.jpg",
         "size": "contain",

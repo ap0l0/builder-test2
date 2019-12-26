@@ -293,17 +293,21 @@ var layout = {
                 returnString+= buildingBlocks["html"](data.CustomHtml);
             }
             if(data.TabList.length>0){
-                console.log("tabs!");
-                var tabs = data.TabList;
-                var returnVal = "";
-                for(var t=0; t<data.TabList.length; t++){
-                    var thisOne = data.TabList[t];
+                console.log("tabs!", data.TabList);
+                returnString+= buildingBlocks["tabs"](data.TabList);
+            }
+            if(data.FooterLinksList.length>0){
+                var footerLinks = data.FooterLinksList;
+                var returnVal = "<div class='link-wrapper'>";
+                for(var t=0; t<footerLinks.length; t++){
+                    var thisOne = footerLinks[t];
                     var title = thisOne.title;
-                    var content=  thisOne.content;
-                    returnVal += "<div><strong>" + title + "</strong></div>";
-                    returnVal += "<div><span>" + content + "</span></div>";
+                    var tlink=  thisOne.link;
+                    var target = thisOne.target;
+                    returnVal += "<a  class='link' href='" + tlink +"' target='"  + target + "'>" + title + "</a>";
                 }
-                returnString+= buildingBlocks["tabs"](returnVal);
+                returnVal +="</div>";
+                returnString+= buildingBlocks["footer"](returnVal);
             }
 
         } else {
@@ -355,8 +359,16 @@ var layout = {
             '</div><div class="panel-body section-content"><div class="container-custom"><div class="VisibleToolbarList ">';
             // get content recursively?
         } else {
-            var stringy = "";
+            var stringy = '<div class="section-content"><div class="container-custom"><div class="content">';
         }
+
+        if(data.HasHeading!=false){
+           stringy += "<div class='title'><h2>" + data.LayoutTitle + "</h2></div>"; 
+        }
+        if(data.LayoutDescription!=""){
+           stringy += "<div class='description'>" + data.LayoutDescription + "</div>"; 
+        }
+
         stringy+= layout.buildContent(id, data);
         //stringy += '<br /><br /><Br />';
         stringy +='</div></div></div>';

@@ -198,8 +198,39 @@ var buildingBlocks = {
 	},
 	tabs: function(data){
 		console.log("building tabs");
-		
-		return "<section class='AvailableToolbar tabs' data-type='tabs'>" + data + "</section>";
+		var tabs = data;
+		var full = "";
+        var tabstring = "<ul class='nav nav-tabs'>";
+        var contentstring = "<div class='tab-content'>";
+        //console.log("tablist", tabs)
+        if(tabs.length){
+	        for(var t=0; t<tabs.length; t++){
+	            var thisOne = tabs[t];
+	            var title = thisOne.title;
+	            var content=  thisOne.content;
+	            var firstClass="";
+	            if(t==0){
+	            	firstClass="active"
+	            }
+	            tabstring += "<li class='" + firstClass + "'><a href='#tab" + t + "'>" + title  + "</a></li>";
+	            contentstring += "<div class='tab-pane " + firstClass + "' id='tab" + t + "'>" + content + "</div>";
+	        }
+	        tabstring += "</ul>";
+	        contentstring += "</div>";
+	        console.log("tab", tabstring);
+	        console.log("content", contentstring)
+	        full += "<section class='AvailableToolbar tabs' data-type='tabs'><div class='tabs-wrapper'>"+
+			 "<div class='tab-container'>" + tabstring + " " +  contentstring + "</div></div></section>";
+			
+		} else {
+			
+		}
+
+		console.log("//////full tabs/////",full);
+		return full;
+	},
+	footer: function(data){
+		return "<section class='AvailableToolbar footer' data-type='footer'>" + data + "</section>";
 	}
 }
 
