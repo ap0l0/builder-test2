@@ -78,6 +78,7 @@
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
   <script src="sample.js"></script>
+  <script src="newsample.js"></script>
   <script src="options.js"></script>
   <script src="bobthebuilder.js"></script>
 </body>

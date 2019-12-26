@@ -1,3 +1,7 @@
+function nameReplace(str,replaceWhat,replaceTo){
+    str.replace(replaceWhat,replaceTo,"g");
+    return str;
+}
 
 var layout = {
     buildNodeParent: $(".droppableContainer>ul"),
@@ -169,37 +173,133 @@ var layout = {
     buildSection: function(data, parent, edit){
         var type=data.type;
         var id = data.id;
-        var options = data.options;
-        
-        console.log(options)
-        if(options[options.length-1] =="\""){
-            
-            options  = options.substring(0, options.length-1)
+        if(id==null){
+            id= data.ViewID;
         }
-        console.log("options", options);
-        var opts = JSON.parse(options);
-        var stringy = "<li class='section AvailableToolbar list-group-item' id='" + id +"'' data-type='" + type + "'";
-        stringy +="style=\"background-image:url('" + opts["background-image"] + "')\"";
-        stringy +=">";
-        stringy+="</li>";
-        console.log("data", data);
-        $(parent).append(stringy);
-        // make header
-        if(edit==false){
-            layout.getEditHeader(id, "section", data);
+        var show = true;
+        if(data["Show"]!=null){
+            show = data.Show;
+        }
+        var options = data.options;
+        if(options==null){
+            options = data.SectionOpts;
+        }
+        if(type=="global"){
+
+        } else {
+            //console.log(type, "show", show)
+            if(show==true){
+                
+                if(typeof options == "string"){
+                    if(options[options.length-1] =="\""){
+                        
+                        options  = options.substring(0, options.length-1)
+                    }
+                    
+                    var opts = JSON.parse(options);
+                } else {
+                    var opts = options;
+                    opts["background"] = data["Background"];
+                }
+                //console.log("options", options);
+                var d = new Date();
+                var timestamp = d.getTime();
+                var sectionID = id + "_" + timestamp;
+
+                var cssContent = data.CustomCSS;
+                if(cssContent){
+                    /*
+                    var lines = cssContent.split("}");
+                    console.log(id, lines)
+                    var newCSScontent = "";
+                    for(var j=0; j<lines.length; j++){
+                        var linereplace = lines[j];
+                        linereplace.replace(id, sectionID)
+                        newCSScontent += "#" + sectionID + " " + linereplace + ";\n";
+                    } 
+                    */
+
+                    var newCSScontent = nameReplace(cssContent, "#" + id, "#" + sectionID)
+                    //cssContent.replace(/#`id`/g, "#" + sectionID);
+
+                } else {
+                    var newCSScontent = "";
+                }
+                console.log(newCSScontent)
+                var appendCSS = "<style id='" + sectionID + "_css'>" + newCSScontent + "</style>";
+                var stringy = "<li class='section AvailableToolbar list-group-item' id='" + sectionID +"'' data-type='" + type + "'";
+                var bgsrc = "";
+                var bgPos = "";
+                var bgAttach = "";
+                var bgRepeat = "";
+                if(opts["background-image"]){
+                    bgsrc = opts["background-image"];
+                    stringy +="style=\"";
+                    stringy += options;
+                    stringy += "\"";
+                } else if (opts["background"]){
+                    bgsrc = options.background.source;
+                    //console.log(typeof bgsrc);
+                    if(bgsrc != ""){
+                        stringy = stringy.replace("AvailableToolbar", "AvailableToolbar background");
+                    }
+                    bgPos = options.background.position;
+                    bgAttach = options.background.attachment;
+                    bgRepeat = options.background.repeat;
+                    bgSize = options.background.size;
+                    bgColor = options.background.color;
+                    bgText = options.background.text;
+                    stringy +="style=\"";
+                    stringy += "background-image:url('" + bgsrc + "');";
+                    stringy += "background-position: " + bgPos + ";";
+                    stringy += "background-attachment: " + bgAttach + ";";
+                    stringy += "background-repeat: " + bgRepeat + ";";
+                    stringy += "background-size: " + bgSize + ";";
+                    if(bgColor!=""){
+                        stringy+= "background-color:" + bgColor + ";"; 
+                    }
+                    if(bgText!=""){
+                        stringy+= "color:" + bgText + ";"; 
+                    }
+                    stringy += "\"";
+                } else {
+
+                }
+                //console.log("bg src",bgsrc)
+                
+                stringy +=">";
+                stringy += appendCSS;
+                stringy+="</li>";
+                //console.log("data", data);
+                $(parent).append(stringy);
+                // make header
+                if(edit==false){
+                    layout.getEditHeader(sectionID, "section", data);
+                }
+            }
         }
     },
     buildContent: function(id, data){
         var content = data.content;
         var returnString ="";
-        for (var key in content) {
-            if (content.hasOwnProperty(key)) {
-                var thisContent = content[key];  
-                console.log("fn buildContent:' ",key,"'", thisContent);
-                returnString+= buildingBlocks[key](thisContent);
+        //console.log(id, data);
+        if(!content){
+            if(data.CustomHero!=""){
+                returnString+= buildingBlocks["html"](data.CustomHero);
             } 
-        }     
-
+            if(data.CustomHtml!=""){
+                returnString+= buildingBlocks["html"](data.CustomHtml);
+            }
+        } else {
+            for (var key in content) {
+                if (content.hasOwnProperty(key)) {
+                    var thisContent = content[key];  
+                    console.log("fn buildContent:' ",key,"'", thisContent);
+                    returnString+= buildingBlocks[key](thisContent);
+                } 
+            }     
+        }
+        
         return returnString;
     },
     insertEditBar: function(id, type, data){
