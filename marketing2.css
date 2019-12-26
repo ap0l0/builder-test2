@@ -2,7 +2,23 @@
 .optionRow {
 	padding: 10px 0;
 }
-
+.mainRow {
+	display: flex;
+}
+.mainRow >.options {
+	flex: 1 25%;
+	min-width: 25%;
+	display: none;
+}
+.mainRow>.mainContent{
+	flex: 1 99%;
+}
+.mainRow>.mainContent {
+	padding: 0;
+}
+.edit .mainRow >.options {
+	display: block;
+}
 span.title {
 	text-transform: capitalize;
 	margin-left: 5px;
@@ -21,7 +37,20 @@ span.title {
 	height: 31px;
 }
 
+.options .optionRow {
+	position: fixed;
+	top: 0px;
+}
+.options .AvailableToolbars  {
+	position: fixed;
+	top: 65px;
+	width: 23%;
+}
 
+.container-custom {
+	max-width: 1400px;
+	margin: auto;
+}
 .VisibleToolbarList {
 	list-style-type: none;
 	margin: 0;
@@ -58,10 +87,10 @@ span.title {
 	
 }
 .droppableContainer .panel {margin: 0px;}
-.options li .panel {margin: 0; border: 0;}
-.options li .panel-heading {display: none;}
-.options li .panel-body {display: none}
-.options li .panel-options {display: none}
+.options section .panel {margin: 0; border: 0;}
+.options section .panel-heading {display: none;}
+.options section .panel-body {display: none}
+.options section .panel-options {display: none}
 .options .headerBar {display: none}
 .options .AvailableToolbar .VisibleToolbarList {display: none}
 
@@ -72,12 +101,12 @@ span.title {
 .droppableContainer .panel-display {
 	display: none
 }
-.droppableContainer>ul {
+.droppableContainer>* {
 	padding-bottom: 2em;
 	background: #333;
 }
 
-li.initial {
+.initial {
 	padding-left: 0;
 	text-align: center;
 	color: #777;

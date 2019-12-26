@@ -21,7 +21,7 @@
 <body>
 
 <div class="container-fluid">
-<div class="row">
+<div class="row mainRow">
 	<div class="col-sm-3 options">
     <div class="btn btn-group optionRow">
       <button class="btn btn-success saveJSON" type="button">
@@ -35,12 +35,12 @@
 
     </ul>
 	</div>
-	<div class="col-sm-9">
+	<div class="col-sm-9 mainContent">
 
 <div class="droppableContainer">
-	<ul class="SaveDataContainer VisibleToolbarList ToolbarItem" auth="admin" foldername="needs-approval">
+	<article class="SaveDataContainer VisibleToolbarList ToolbarItem" auth="admin" foldername="needs-approval">
 	<?php //include "sections.php"; ?>
-  	</ul>                                            
+  	</article>                                            
 </div>
 
 	</div>
@@ -67,7 +67,9 @@
 
   </div>
 </div>
-
+<script>
+var edit = <?php if(isset($_REQUEST['edit'])){echo "true";}else {echo "false";} ?>;
+</script>
 <script
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="

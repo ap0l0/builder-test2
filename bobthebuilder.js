@@ -1,10 +1,9 @@
 function nameReplace(str,replaceWhat,replaceTo){
-    str.replace(replaceWhat,replaceTo,"g");
-    return str;
+    var newstr = str.replace(new RegExp(replaceWhat, 'g'),replaceTo);
+    return newstr;
 }
-
 var layout = {
-    buildNodeParent: $(".droppableContainer>ul"),
+    buildNodeParent: $(".droppableContainer>article"),
     templateFunctions: {
         background: function(parent, buttonId, nodeId){
             $("#optionModal").attr("data-node", nodeId)
@@ -29,7 +28,7 @@ var layout = {
     },
     checkForDups: function(){
          var ids = [];
-        $(".options .AvailableToolbars>li").each(function(){
+        $(".options .AvailableToolbars>section").each(function(){
             var thisID = $(this).attr("data-id");
             ids.push(thisID);
         });
@@ -39,9 +38,9 @@ var layout = {
                 if (ids[i]==ids[j]) { 
                     // got the duplicate element 
                     //console.log("dup:",ids[i], ".options .AvailableToolbars>li[data-id='" + ids[i] + "']");
-                    var count = $(".options .AvailableToolbars>li[data-id='" + ids[i] + "']").size();
+                    var count = $(".options .AvailableToolbars>section[data-id='" + ids[i] + "']").size();
                     var loopCount = 1;
-                    $(".options .AvailableToolbars>li[data-id='" + ids[i] + "']").each(function(){
+                    $(".options .AvailableToolbars>section[data-id='" + ids[i] + "']").each(function(){
                         //console.log($(this).text(), count, loopCount)
                         if(loopCount == count){
                             console.log("equal");
@@ -104,7 +103,8 @@ var layout = {
         });
         $(document).on("click", "button.saveModal", function(){
             var type = $(this).closest(".modal").attr("data-type");
-            var node = $(this).closest(".modal").attr("data-node")
+            var node = $(this).closest(".modal").attr("data-node");
+            console.log(type, node, "modal")
             if(templateActions[type]){
                 templateActions[type](node, type)
             }
@@ -144,6 +144,7 @@ var layout = {
         });
         $(".VisibleToolbarList").sortable({
             connectWith: ".VisibleToolbarList",
+            handle: ".mover",
             receive: function (e, ui) {
                 
                 var thisTitle = $(ui.item[0]).attr("data-id");
@@ -163,8 +164,8 @@ var layout = {
             },
             sort: function(e, ui) {
                 //Changing the sort on a single item can screw with the sort values for all of the items, so mark them all at updated
-                $(ui.item[0]).parent().find("li").find(".Data_Modified").val("1");
-                $(ui.item[0]).parent().find("li").addClass("ItemUpdated");
+                $(ui.item[0]).parent().find("section").find(".Data_Modified").val("1");
+                $(ui.item[0]).parent().find("section").addClass("ItemUpdated");
             }
         });
 
@@ -225,9 +226,9 @@ var layout = {
                 } else {
                     var newCSScontent = "";
                 }
-                console.log(newCSScontent)
+                //console.log(newCSScontent)
                 var appendCSS = "<style id='" + sectionID + "_css'>" + newCSScontent + "</style>";
-                var stringy = "<li class='section AvailableToolbar list-group-item' id='" + sectionID +"'' data-type='" + type + "'";
+                var stringy = "<section class='section AvailableToolbar list-group-item' id='" + sectionID +"'' data-type='" + type + "'";
                 var bgsrc = "";
                 var bgPos = "";
                 var bgAttach = "";
@@ -269,20 +270,21 @@ var layout = {
                 
                 stringy +=">";
                 stringy += appendCSS;
-                stringy+="</li>";
+                stringy+="</section>";
                 //console.log("data", data);
                 $(parent).append(stringy);
                 // make header
-                if(edit==false){
-                    layout.getEditHeader(sectionID, "section", data);
-                }
+              
+                layout.getEditHeader(sectionID, "section", data);
+                //layout.insertEditBar(sectionID, "section", data);
+                
             }
         }
     },
     buildContent: function(id, data){
         var content = data.content;
         var returnString ="";
-        //console.log(id, data);
+        console.log(id, data);
         if(!content){
             if(data.CustomHero!=""){
                 returnString+= buildingBlocks["html"](data.CustomHero);
@@ -290,7 +292,22 @@ var layout = {
             if(data.CustomHtml!=""){
                 returnString+= buildingBlocks["html"](data.CustomHtml);
             }
+            if(data.TabList.length>0){
+                console.log("tabs!");
+                var tabs = data.TabList;
+                var returnVal = "";
+                for(var t=0; t<data.TabList.length; t++){
+                    var thisOne = data.TabList[t];
+                    var title = thisOne.title;
+                    var content=  thisOne.content;
+                    returnVal += "<div><strong>" + title + "</strong></div>";
+                    returnVal += "<div><span>" + content + "</span></div>";
+                }
+                returnString+= buildingBlocks["tabs"](returnVal);
+            }
+
         } else {
+            //console.log("here is content", content)
             for (var key in content) {
                 if (content.hasOwnProperty(key)) {
                     var thisContent = content[key];  
@@ -320,31 +337,35 @@ var layout = {
         $("#"+id).prepend(stringy)
     },
     getEditHeader: function(id, type, data){
-        var stringy = '<div class="optionWrapper panel panel-default">'+
-        '<div class="panel-heading">'+
-            '<a href="#" class="btn btn-default btn-sm mover">'+
-                '<i class="fa fa-arrows-v"></i>'+
-            '</a><span class="title">'+ type + '</span>'+
-            '<div class="btn-group pull-right buttonRow">'+
-            '<button class="btn btn-sm btn-default colors" data-type="colors">'+
-            '<i class="fa fa-paint-brush"></i>'+
-            '</button>'+
-            '<button class="btn btn-sm btn-default background" data-type="background">'+
-            '<i class="fa fa-picture-o"></i></button>'+
-            '<a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
-            '<i class="fa fa-times text-danger"></i></a></div>'+
-            '<input type="text" class="ValueBox form-control" value="section_1565271675" onchange="LabelChanged(this);">'+
-        '</div><div class="panel-body section-content"><ul class="VisibleToolbarList ">';
-        // get content recursively?
+        if(edit==true){
+            var stringy = '<div class="optionWrapper panel panel-default">'+
+            '<div class="panel-heading">'+
+                '<a href="#" class="btn btn-default btn-sm mover">'+
+                    '<i class="fa fa-arrows-v"></i>'+
+                '</a><span class="title">'+ type + '</span>'+
+                '<div class="btn-group pull-right buttonRow">'+
+                '<button class="btn btn-sm btn-default colors" data-type="colors">'+
+                '<i class="fa fa-paint-brush"></i>'+
+                '</button>'+
+                '<button class="btn btn-sm btn-default background" data-type="background">'+
+                '<i class="fa fa-picture-o"></i></button>'+
+                '<a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
+                '<i class="fa fa-times text-danger"></i></a></div>'+
+                '<input type="text" class="ValueBox form-control" value="section_1565271675" onchange="LabelChanged(this);">'+
+            '</div><div class="panel-body section-content"><div class="container-custom"><div class="VisibleToolbarList ">';
+            // get content recursively?
+        } else {
+            var stringy = "";
+        }
         stringy+= layout.buildContent(id, data);
         //stringy += '<br /><br /><Br />';
-        stringy +='<ul></div>';
-        $("#"+id).append(stringy)
+        stringy +='</div></div></div>';
+        $("#"+id).append(stringy);
     },
     buildOption: function(name, data){
         // modularize the toolbar?
 
-        var stringy = '<li class="AvailableToolbar ui-sortable-handle list-group-item" data-id="' + name + '">'+
+        var stringy = '<section class="AvailableToolbar ui-sortable-handle list-group-item" data-id="' + name + '">'+
         '<div class="optionWrapper panel panel-default">'+
             '<div class="panel-display">'+
                 '<span class="title"><i class="fa ' + data.icon + '"></i> '+name+'</span>'+
@@ -395,7 +416,7 @@ var layout = {
                 '</a>'+
             '</div>'+
         '</div>'+
-        '</li>';
+        '</section>';
         //console.log(stringy)
         $(".options>ul").append(stringy)
     },
@@ -411,11 +432,19 @@ var layout = {
         }
     },
     init: function(){
-        layout.getOptions();
+        if(edit==true){
+            layout.getOptions();
+            $("body").addClass("edit");
+        } else {
+            $(".options").hide();
+
+        }
         
         layout.buttonBinding();
         layout.preloadLayout(sample);
-        layout.ConfigAllSortables();
+        if(edit==true){
+            layout.ConfigAllSortables();
+        }
     },
     preloadLayout: function(dat){
         console.log("loading ",dat.sections);
@@ -435,9 +464,19 @@ var layout = {
         json["sections"] = [];
         $tar.find(">.AvailableToolbar").each(function(){
             var $node = $(this);
+
+            var background = {
+                source: $node.css("background-image"),
+                size: $node.css("background-size"),
+                position: $node.css("background-position"),
+                repeat: $node.css("background-repeat"),
+                attachment: $node.css("background-attachment"),
+                color: $node.css("background-color"),
+                text: $node.css("color"),
+            };
             var thisSection = {
                 id: $node.attr("id"),
-                options: $node.attr("data-options"),
+                Background: background,
                 type: $node.attr("data-type")
 
             };

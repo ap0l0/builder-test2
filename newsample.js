@@ -94,7 +94,7 @@ var sample = {
       "HasHeading": false,
       "LayoutTitle": "custom_hero section",
       "LayoutDescription": "",
-      "CustomCSS": ".testimony blockquote {background-color: rgba(255,255,255,0.7);}\n.thumbs {margin: 0 -5px}\n.thumbs {list-style-type: none; padding: 0; display: flex; margin-top: 10px;}\n.thumbs li {flex: 1 33%; padding: 0; margin: 0 5px;}\n.thumbs li img {width: 100%;}\n.main {width: 100%}\n#custom_hero .info {}\n#custom_hero h3 {text-transform: inherit; font-weight: normal; font-size: 1.2em;}\n#custom_hero blockquote {margin-top: 2em}\n#custom_hero, #custom_hero h1, #custom_hero h3 {text-shadow: 0px 0px 3px #333}\n#custom_hero {padding: 7em 2em;}\n\n#custom_hero .container {background-color: rgba(255,255,255,.6); padding: 2em;}\n\n#custom_hero {border-top: 0px solid orange; border-bottom: 4px solid orange;}",
+      "CustomCSS": ".testimony blockquote {background-color: rgba(255,255,255,0.7);}\n.thumbs {margin: 0 -5px}\n.thumbs {list-style-type: none; padding: 0; display: flex; margin-top: 10px;}\n.thumbs li {flex: 1 33%; padding: 0; margin: 0 5px;}\n.thumbs li img {width: 100%;}\n.main {width: 100%}\n#custom_hero .info {}\n#custom_hero h3 {text-transform: inherit; font-weight: normal; font-size: 1.2em;}\n#custom_hero blockquote {margin-top: 2em}\n#custom_hero, #custom_hero h1, #custom_hero h3 {text-shadow: 0px 0px 3px #333}\n#custom_hero .section-content {padding: 7em 2em;}\n\n#custom_hero .container {background-color: rgba(255,255,255,.6); padding: 2em;}\n\n#custom_hero {border-top: 0px solid orange; border-bottom: 4px solid orange;}",
       "Background": {
         "source": "https://support-dam.mymediabox.com/$branding$/Marketing/mappify_20191115131710910.jpg",
         "size": "cover",
@@ -102,7 +102,7 @@ var sample = {
         "position": "center center",
         "attachment": "scroll",
         "color": "#ffffff",
-        "text": "#000000"
+        "text": "pink"
       },
       "CustomHero": "<div class=\"row\">\n \t<div class=\"col-sm-6\">\n \t\t\n \t\t<div class=\"preview\">\n \t\t\t<img src=\"https://picsum.photos/700/300\" class=\"main\" />\n \t\t\t<ul class=\"thumbs\">\n \t\t\t\t<li><img src=\"https://picsum.photos/170/100\" /></li>\n \t\t\t\t<li><img src=\"https://picsum.photos/173/101\" /></li>\n \t\t\t\t<li><img src=\"https://picsum.photos/170/101\" /></li>\n \t\t\t</ul>\n \t\t</div>\n \t</div>\n \t<div class=\"col-sm-6\">\n <div class=\"info\">\n \t\t<h1>Property Title</h1>\n \t\t<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit lacinia lectus, sit amet imperdiet est mattis ut. Pellentesque massa quam, lacinia a vestibulum at, maximus et felis. Integer eu justo vitae sem lacinia feugiat. Aenean nec dui condimentum leo pulvinar euismod. Sed congue aliquet tellus. Ut elementum pretium dui at tincidunt. Sed maximus lectus ex, a ullamcorper dolor blandit vitae. In aliquet quis risus vel convallis.</h3>\n \t\t<blockquote> \t\t\tNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... \t\t</blockquote>\n </div>\n \t</div>\n </div>",
       "CustomHtml": "",
@@ -136,7 +136,25 @@ var sample = {
         "text": "#000000"
       },
       "CustomHero": "",
-      "CustomHtml": "Vestibulum in quam at neque pharetra faucibus. Vestibulum dignissim odio ac nisi rhoncus consectetur. Pellentesque vel ex ac erat dignissim rhoncus. Mauris eget nisl sed libero tincidunt hendrerit a quis nunc. Donec vel mi consectetur, finibus leo quis, mollis tortor. Fusce porta metus quis sem porttitor, vitae tempor erat volutpat. Sed iaculis ex risus, ut convallis magna dignissim sollicitudin. Phasellus eget porttitor nibh, in blandit tortor. Mauris tempus, elit eget ornare placerat, nisl velit tempus ligula, ac placerat mi metus eu ex. In mattis ligula nec tristique sollicitudin. Integer ac scelerisque urna, sed bibendum neque. Duis pellentesque odio non commodo faucibus. Nam elementum semper nisi, nec molestie elit accumsan nec. Proin tincidunt eros sapien, at posuere tellus posuere ac.",
+      "content": {
+        columns:{
+          options:{
+            num: 2
+          },
+          content: [
+            {
+              id: "columns_424234", 
+              content: {
+                html: "Vestibulum in quam at neque pharetra faucibus. Vestibulum dignissim odio ac nisi rhoncus consectetur. Pellentesque vel ex ac erat dignissim rhoncus. Mauris eget nisl sed libero tincidunt hendrerit a quis nunc. Donec vel mi consectetur, finibus leo quis, mollis tortor. Fusce porta metus quis sem porttitor, vitae tempor erat volutpat. Sed iaculis ex risus, ut convallis magna dignissim sollicitudin. Phasellus eget porttitor nibh, in blandit tortor. Mauris tempus, elit eget ornare placerat, nisl velit tempus ligula, ac placerat mi metus eu ex. In mattis ligula nec tristique sollicitudin. Integer ac scelerisque urna, sed bibendum neque. Duis pellentesque odio non commodo faucibus. Nam elementum semper nisi, nec molestie elit accumsan nec. Proin tincidunt eros sapien, at posuere tellus posuere ac."
+              }
+            },
+            {
+              id:"columns_424235"
+            }
+          ]
+        },
+      },
+      "CustomHtml": "",
       "ImageList": [],
       "SectionOpts": {},
       "ButtonList": [],

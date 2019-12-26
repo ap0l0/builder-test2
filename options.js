@@ -41,7 +41,10 @@ var optionMarkup = {
 	        '</select>'+
 	    '</div>'+
 	'</div>',
-	colors: 'background|text'
+	colors: '<div class="row"><div class="col-sm-6"><label>Background-color</label>' +
+	'<input type="text" class="form-control cssDropdown bgColor" rel="background-color">' +
+	'</div><div class="col-sm-6"><label>Text Color</label>'+
+	'<input type="text" class="form-control cssDropdown color" rel="color" /></div></div>'
 }
 var optionPopulation=  {
 	background: function(data){
@@ -86,20 +89,39 @@ var templateActions = {
 		console.log(opts);
 		$("#optionModal").modal("hide");
 	},
-	colors: function(){}
+	colors: function(node, buttonId){
+		var bgColor = $(".modal-body .bgColor").val();
+		var color = $(".modal-body .color").val();
+		var $thisNode = $("#"+node);
+		var opts = {
+			"background-color": bgColor,
+			"color": color
+		}
+		for (var key in opts) {
+            if (opts.hasOwnProperty(key)) {
+            	$thisNode.css(key, opts[key]);
+            }
+        }
+        //var currentOpts = $thisNode.attr("data-options");
+        //var editable = JSON.parse(currentOpts);
+
+		//$thisNode.attr("data-options", JSON.stringify(opts));
+		$("#optionModal").modal("hide");
+
+	}
 }
 var templates = {
-	placeholder: "<ul class='VisibleToolbarList'><li class='initial'>Add Content</li></ul>",
+	placeholder: "<article class='VisibleToolbarList'><section class='initial'>Add Content</section></article>",
 	columns: '<div class="row columnWrapper" >'+
         '<div class="col-sm-6">'+
-            '<ul class="VisibleToolbarList">'+
-                '<li class="initial">Add content</li>'+
-            '</ul>'+
+            '<article class="VisibleToolbarList">'+
+                '<section class="initial">Add content</section>'+
+            '</article>'+
         '</div>'+
         '<div class="col-sm-6">'+
-            '<ul class="VisibleToolbarList">'+
-                '<li class="initial">Add content</li>'+
-            '</ul>'+   
+            '<article class="VisibleToolbarList">'+
+                '<section class="initial">Add content</section>'+
+            '</article>'+   
         '</div>'+
     '</div>',
     html: "<textarea class='form-control htmlValue'></textarea>",
@@ -111,15 +133,16 @@ var templates = {
 
 var buildingBlocks = {
 	html: function(data) {
-		console.log("building html", data)
-		return "<li class='html AvailableToolbar' data-type='html'>" + data + "</li>";
+		//console.log("building html", data)
+		return "<section class='html AvailableToolbar' data-type='html'>" + data + "</section>";
 	},
 	columns: function(data){
+		console.log("building columns", data)
 		var cols = data;
 		var num = data.content.length;
 
 		console.log("columns", num ,cols)
-		var colString = "<li class='AvailableToolbar columns' data-type='columns'><div class='row columns'>";
+		var colString = "<section class='AvailableToolbar columns' data-type='columns'><div class='row columns'>";
 		var className = "col-sm-6";
 		switch(num){
 			case 1: className="col-sm-12"; break;
@@ -140,7 +163,7 @@ var buildingBlocks = {
 			
 			if(thisCol["content"]){
 				console.log("thisCol content", thisCol["content"]);
-				var returnString ="<ul class='VisibleToolbarList'>";
+				var returnString ="<article class='VisibleToolbarList'>";
 				for (var key in thisCol["content"]) {
 		            if (thisCol["content"].hasOwnProperty(key)) {
 		                var thisContent = thisCol["content"][key];  
@@ -148,7 +171,7 @@ var buildingBlocks = {
 		                returnString+= buildingBlocks[key](thisContent);
 		            } 
 		        } 
-		        returnString += "</ul>";
+		        returnString += "</article>";
 		        colString +=returnString;    
 
 			}
@@ -158,20 +181,25 @@ var buildingBlocks = {
 			
 			colString += "</div>";		
 		}
-		colString += "</div></li>";
+		colString += "</div></section>";
 		return colString;
 	},
 	heading: function(data){
 		console.log("building heading");
-		return "<li class='heading AvailableToolbar' data-type='heading'><h2>" + data + "</h2></li>";
+		return "<section class='heading AvailableToolbar' data-type='heading'><h2>" + data + "</h2></section>";
 	},
 	initial: function(data){
 		console.log("building initial section");
-		return "<li class='initial AvailableToolbar' data-type='initial'>Add Content</li>";
+		return "<section class='initial AvailableToolbar' data-type='initial'>Add Content</section>";
 	},
 	section: function(data){
 		console.log("building section");
-		return "<li class='AvailableToolbar section' data-type='section'>Section</li>"
+		return "<section class='AvailableToolbar section' data-type='section'>Section</section>";
+	},
+	tabs: function(data){
+		console.log("building tabs");
+		
+		return "<section class='AvailableToolbar tabs' data-type='tabs'>" + data + "</section>";
 	}
 }
 
