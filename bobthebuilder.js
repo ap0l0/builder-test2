@@ -8,10 +8,20 @@ var layout = {
         background: function(parent, buttonId, nodeId){
             $("#optionModal").attr("data-node", nodeId)
             $("#optionModal .modal-body").html(optionMarkup[buttonId]);
-            var data = null;
-            if($(parent).attr("data-options")){
-                data  = $(parent).attr("data-options");
+            var bgsrc = $("#"+nodeId).css("background-image");
+            if(bgsrc.indexOf("url")>-1){
+                bgsrc = bgsrc.substring(5, bgsrc.length-2);
             }
+            var bgpos = $("#"+nodeId).css("background-position");
+
+            var data = null;
+            data = {};
+            data["background-image"] = bgsrc;
+            data["background-size"] = $("#"+nodeId).css("background-size");
+            data["background-position"] = bgpos;
+            data["background-repeat"] = $("#"+nodeId).css("background-repeat");
+            data["background-attachment"] = $("#"+nodeId).css("background-attachment");
+            
             layout.populateOptions(buttonId, data);
             $("#optionModal").modal("show");
             
@@ -22,8 +32,23 @@ var layout = {
         colors: function(parent, buttonId, nodeId){
             $("#optionModal").attr("data-node", nodeId)
             $("#optionModal .modal-body").html(optionMarkup[buttonId]);
+            
+
+            var data = null;
+            data = {};
+            data["background-color"] = $("#"+nodeId).css("background-color");
+            data["color"] = $("#"+nodeId).css("color");
+
+            console.log("#"+nodeId + " .css('color')")
+            layout.populateOptions(buttonId, data);
             $("#optionModal").modal("show");
+
            
+        },
+        customCSS: function(parent, buttonId, nodeId){
+            $("#optionModal").attr("data-node", nodeId)
+            $("#optionModal .modal-body").html(optionMarkup[buttonId]);
+            $("#optionModal").modal("show");
         }
     },
     checkForDups: function(){
@@ -54,9 +79,10 @@ var layout = {
         }
     },
     populateOptions: function(type, data){
+        console.log("populate", type, data)
         if(data!=null){
             if(optionPopulation[type]){
-                optionPopulation[type](JSON.parse(data));
+                optionPopulation[type](data);
             }
         }
         console.log("populating options for", type, "with", data);
@@ -79,6 +105,19 @@ var layout = {
                 alert("no method " + buttonId)
             }
             
+        });
+        $(document).on("click", ".buttonRow .customCSS", function(){
+            var buttonId = $(this).attr("data-type");
+            alert(buttonId)
+            var $par = $(this).closest(".AvailableToolbar");
+            var nodeId = $par.attr("id");
+            $("#optionModal").attr("data-type", buttonId);
+            $("#optionModal .modal-title span").text(buttonId);
+            if(layout.templateFunctions[buttonId]){
+                layout.templateFunctions[buttonId]($par, buttonId, nodeId);
+            } else {
+                alert("no method " + buttonId)
+            }
         });
         $(document).on("click", "button.saveJSON", function(){
             layout.updateJSON();
@@ -185,7 +224,8 @@ var layout = {
         if(options==null){
             options = data.SectionOpts;
         }
-        if(type=="global"){
+        //console.log(data)
+        if(type=="global" || type=="no_access"){
 
         } else {
             //console.log(type, "show", show)
@@ -284,7 +324,7 @@ var layout = {
     buildContent: function(id, data){
         var content = data.content;
         var returnString ="";
-        console.log(id, data);
+        //console.log(id, data);
         if(!content){
             if(data.CustomHero!=""){
                 returnString+= buildingBlocks["html"](data.CustomHero);
@@ -292,11 +332,33 @@ var layout = {
             if(data.CustomHtml!=""){
                 returnString+= buildingBlocks["html"](data.CustomHtml);
             }
-            if(data.TabList.length>0){
+            if(data.TabList){
                 console.log("tabs!", data.TabList);
                 returnString+= buildingBlocks["tabs"](data.TabList);
             }
-            if(data.FooterLinksList.length>0){
+            if(data.ImageList){
+                var carousel = false;
+                var images = data.ImageList;
+                if(data.SectionOpts){
+                    if(data.SectionOpts.thumbs){
+                        carousel = true;
+                    }
+                }
+                if(carousel==true){
+                    returnString += "<div class='swiper-container-wrapper'>";
+                    returnString += "<div class='swiper-container swiper-container-horizontal'><div class='swiper-wrapper'>";
+                    for(var i=0; i<images.length; i++){
+                        returnString += "<div class='swiper-slide' style='background-image:url(" + images[i] + ")'></div>";
+                    }
+                    returnString += "</div></div>";
+
+                    returnString += "<div class=\"swiper-pagination-carousel swiper-pagination swiper-pagination-container swiper-pagination-clickable swiper-pagination-bullets\"><span class=\"swiper-pagination-bullet swiper-pagination-bullet-active\"></span></div></div>";
+                    returnString += "<script>var carouselOpts = {slidesPerView: 4,spaceBetween: 30};var swiperCarousel = new Swiper('.swiper-container', carouselOpts);</script>";
+                } else {
+                    // media
+                }
+            }
+            if(data.FooterLinksList){
                 var footerLinks = data.FooterLinksList;
                 var returnVal = "<div class='link-wrapper'>";
                 for(var t=0; t<footerLinks.length; t++){
@@ -315,7 +377,7 @@ var layout = {
             for (var key in content) {
                 if (content.hasOwnProperty(key)) {
                     var thisContent = content[key];  
-                    console.log("fn buildContent:' ",key,"'", thisContent);
+                    //console.log("fn buildContent:' ",key,"'", thisContent);
                     returnString+= buildingBlocks[key](thisContent);
                 } 
             }     
@@ -334,8 +396,9 @@ var layout = {
             '</button>'+
             '<button class="btn btn-sm btn-default background" data-type="background">'+
             '<i class="fa fa-picture-o"></i></button>'+
-            '<a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
-            '<i class="fa fa-times text-danger"></i></a></div>'+
+            '<a href="#" class="btn btn-default customCSS" data-type="customCSS"><i class="fa fa-gear"></i></a><a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
+            '<i class="fa fa-times text-danger"></i></a>'+
+            '</div>'+
             '<input type="text" class="ValueBox form-control" value="section_1565271675" onchange="LabelChanged(this);">'+
         '</div>';
         $("#"+id).prepend(stringy)
@@ -353,8 +416,9 @@ var layout = {
                 '</button>'+
                 '<button class="btn btn-sm btn-default background" data-type="background">'+
                 '<i class="fa fa-picture-o"></i></button>'+
-                '<a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
-                '<i class="fa fa-times text-danger"></i></a></div>'+
+                '<a href="#" class="btn btn-default customCSS" data-type="customCSS"><i class="fa fa-gear"></i></a><a href="javascript:;" class="btn btn-default removeItem btn-sm" data-external="true">'+
+                '<i class="fa fa-times text-danger"></i></a>'+
+                '</div>'+
                 '<input type="text" class="ValueBox form-control" value="section_1565271675" onchange="LabelChanged(this);">'+
             '</div><div class="panel-body section-content"><div class="container-custom"><div class="VisibleToolbarList ">';
             // get content recursively?
@@ -466,6 +530,31 @@ var layout = {
            var thisSect = sects[i];
            layout.buildSection(thisSect, layout.buildNodeParent, false)
         }
+
+        // add footer
+        var footer = {
+          "ViewID": "realFooter",
+          "Show": true,
+          "type": "footer",
+          "HasHeading": false,
+          "LayoutDescription": "",
+          "CustomCSS": "",
+          "Background": {
+            "source": "",
+            "size": "contain",
+            "repeat": "no-repeat",
+            "position": "bottom right",
+            "attachment": "scroll",
+            "color": "#000",
+            "text": "#fff"
+          },
+          
+          "SectionOpts": {},
+          
+          "CustomHtml": buildingBlocks.realFooter("")
+          
+        }
+        layout.buildSection(footer, layout.buildNodeParent, false)
         
     },
     updateJSON:function(){

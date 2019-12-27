@@ -125,7 +125,7 @@ var sample = {
       "HasHeading": true,
       "LayoutTitle": "Heading",
       "LayoutDescription": "",
-      "CustomCSS": "#custom_html .section-content {padding: 12em 2em;}#custom_html { border-top: 4px solid orange; border-bottom: 4px solid orange;}\n#custom_html .content {flex: none!important; width: 60%;}",
+      "CustomCSS": "#custom_html .section-content {padding: 12em 2em;}#custom_html { border-top: 4px solid orange; border-bottom: 4px solid orange;}\n#custom_html .content {flex: none!important; width: auto;}",
       "Background": {
         "source": "https://support-dam.mymediabox.com/$branding$/Marketing/mappify_20191115131407093.jpg",
         "size": "contain",
@@ -201,7 +201,7 @@ var sample = {
       "Show": true,
       "Align": "left",
       "HasHeading": true,
-      "LayoutTitle": "",
+      "LayoutTitle": "Carousel",
       "LayoutDescription": "",
       "CustomCSS": "#carousel {min-height: 400px; border-top: 4px solid orange; border-bottom: 4px solid orange;}",
       "Background": {
@@ -216,10 +216,10 @@ var sample = {
       "CustomHero": "",
       "CustomHtml": "",
       "ImageList": [
-        "17456044",
-        "17456045",
-        "17456046",
-        "17456047"
+        "https://picsum.photos/200/300",
+        "https://picsum.photos/200/301",
+        "https://picsum.photos/200/302",
+        "https://picsum.photos/200/303"
       ],
       "SectionOpts": {
         "show": true,
@@ -395,7 +395,7 @@ var sample = {
       "Show": true,
       "Align": "left",
       "HasHeading": true,
-      "type": "section",
+      "type": "no_access",
       "LayoutTitle": "",
       "LayoutDescription": "",
       "CustomCSS": "",

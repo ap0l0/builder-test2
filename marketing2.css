@@ -50,6 +50,7 @@ span.title {
 .container-custom {
 	max-width: 1400px;
 	margin: auto;
+	padding: 2em;
 }
 .VisibleToolbarList {
 	list-style-type: none;
@@ -66,11 +67,11 @@ span.title {
 }
 
 .edit .droppableContainer .background .panel-heading {
-	background-color: rgba(255,255,255,0.4);
+	background-color: rgba(255,255,255,0.3);
 	background-image: none;
 }
 .edit .droppableContainer .background .AvailableToolbar  {
-	background-color: rgba(255,255,255,0.3);
+	background-color: rgba(255,255,255,0);
 }
 
 .droppableContainer .AvailableToolbar {
@@ -101,7 +102,7 @@ span.title {
 .droppableContainer .panel-display {
 	display: none
 }
-.droppableContainer>* {
+.edit .droppableContainer>* {
 	padding-bottom: 2em;
 	background: #333;
 }

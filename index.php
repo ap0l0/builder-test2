@@ -16,7 +16,13 @@
 
 <link rel="stylehseet" href="swiper-4.4.2/dist/css/swiper.css" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" />
+
+<link rel="stylesheet" href="lib/swiper.css" />
+<link rel="stylesheet" href="lib/swiper-custom.css" />
+
 <link rel="stylesheet" href="marketing2.css" />
+  <!-- libs -->
+  <script src="lib/swiper.js"></script>
 </head>
 <body>
 
@@ -83,5 +89,7 @@ var edit = <?php if(isset($_REQUEST['edit'])){echo "true";}else {echo "false";} 
   <script src="newsample.js"></script>
   <script src="options.js"></script>
   <script src="bobthebuilder.js"></script>
+
+
 </body>
 </html>

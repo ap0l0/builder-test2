@@ -21,7 +21,8 @@ var optionMarkup = {
 	    '</div>'+
 	    '<div class="col-sm-6">'+
 	        '<span class="labeltext">Background Position</span>'+
-	        '<select class="form-control cssDropdown" rel="background-position">'+
+	        '<input type="text" class="form-control cssDropdown" rel="background-position" />'+
+	        '<select class="form-control cssDropdown hidden" rel="background-position">'+
 	            '<option value="top left">Top Left</option>'+
 	            '<option value="top center">Top Center</option>'+
 	            '<option value="top right">Top Right</option>'+
@@ -37,14 +38,15 @@ var optionMarkup = {
 	        '<span class="labeltext">Background Attachment</span>'+
 	        '<select class="form-control cssDropdown" rel="background-attachment">'+
 	            '<option value="fixed">Fixed</option>'+
-	            '<option value="inherit" selected="">Default</option>'+
+	            '<option value="scroll" selected="">Scroll</option>'+
 	        '</select>'+
 	    '</div>'+
 	'</div>',
 	colors: '<div class="row"><div class="col-sm-6"><label>Background-color</label>' +
-	'<input type="text" class="form-control cssDropdown bgColor" rel="background-color">' +
-	'</div><div class="col-sm-6"><label>Text Color</label>'+
-	'<input type="text" class="form-control cssDropdown color" rel="color" /></div></div>'
+		'<input type="text" class="form-control cssDropdown bgColor" rel="background-color">' +
+		'</div><div class="col-sm-6"><label>Text Color</label>'+
+		'<input type="text" class="form-control cssDropdown color" rel="color" /></div></div>',
+	customCSS: 'Customcss'
 }
 var optionPopulation=  {
 	background: function(data){
@@ -56,6 +58,20 @@ var optionPopulation=  {
             }
         }
 	},
+	colors: function(data){
+		var $thisNode = $(".modal-body");
+		console.log("color:",data)
+		for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+            	var propVal = data[key];
+            	console.log("populating", propVal)
+            	$thisNode.find(".cssDropdown[rel='" + key + "']").val(propVal)
+            }
+        }
+	},
+	customCSS: function(data){
+
+	}
 }
 
 var templateActions = {
@@ -90,9 +106,11 @@ var templateActions = {
 		$("#optionModal").modal("hide");
 	},
 	colors: function(node, buttonId){
-		var bgColor = $(".modal-body .bgColor").val();
-		var color = $(".modal-body .color").val();
 		var $thisNode = $("#"+node);
+
+		var bgColor = $(".modal-body .cssDropdown[rel='background-color']").val();
+		var color = $(".modal-body .cssDropdown[rel='color']").val();;
+		
 		var opts = {
 			"background-color": bgColor,
 			"color": color
@@ -137,11 +155,11 @@ var buildingBlocks = {
 		return "<section class='html AvailableToolbar' data-type='html'>" + data + "</section>";
 	},
 	columns: function(data){
-		console.log("building columns", data)
+		//console.log("building columns", data)
 		var cols = data;
 		var num = data.content.length;
 
-		console.log("columns", num ,cols)
+		//console.log("columns", num ,cols)
 		var colString = "<section class='AvailableToolbar columns' data-type='columns'><div class='row columns'>";
 		var className = "col-sm-6";
 		switch(num){
@@ -189,15 +207,24 @@ var buildingBlocks = {
 		return "<section class='heading AvailableToolbar' data-type='heading'><h2>" + data + "</h2></section>";
 	},
 	initial: function(data){
-		console.log("building initial section");
+		//console.log("building initial section");
 		return "<section class='initial AvailableToolbar' data-type='initial'>Add Content</section>";
 	},
 	section: function(data){
-		console.log("building section");
+		//console.log("building section");
 		return "<section class='AvailableToolbar section' data-type='section'>Section</section>";
 	},
+	realFooter:function(data){
+
+		return "<section class='AvailableToolbar footer' data-type='section'><div class='row'><div class='col-sm-6'>&copy; Company Name</div>"+
+		"<div class='col-sm-6 text-right'>links</div></div></section>";
+	},
+	carousel: function(data){
+
+		return "carousel"
+	},
 	tabs: function(data){
-		console.log("building tabs");
+		//console.log("building tabs");
 		var tabs = data;
 		var full = "";
         var tabstring = "<ul class='nav nav-tabs'>";
