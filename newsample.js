@@ -138,6 +138,7 @@ var sample = {
       "CustomHero": "",
       "content": {
         columns:{
+          id: "cols3442",
           options:{
             num: 2
           },

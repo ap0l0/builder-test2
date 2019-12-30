@@ -575,16 +575,76 @@ var layout = {
                 color: $node.css("background-color"),
                 text: $node.css("color"),
             };
+            var contents = [];
+            $(this).find(".AvailableToolbar").each(function(){
+                var thisContent = {};
+                
+
+                var dataType = $(this).attr("data-type");
+                thisContent.id = id;
+                thisContent.content = {};
+
+                var id = $(this).attr("id");
+                if(typeof id=="undefined"){
+                    var d = new Date();
+                    var tmstmp  = d.getTime();
+                    id = dataType + tmstmp;
+                }
+                
+
+                
+                if(dataType =="html"){
+                    thisContent.content["html"] =  $(this).html();
+                } else {
+                    thisContent.content[dataType] = {}
+                    if(dataType =="columns"){
+                        //check inner content
+                        var num = 0;
+                        var cols = [];
+                        $(this).find(".columns").find(">*").each(function(){
+                            num++;
+                            var thisId = $(this).attr("id");
+                            var t = new Date();
+                            id = dataType + t.getTime();
+                            var selector = $(this).find(".columns>*:nth-child(" + num+1 +")"); 
+                            var colContents = {};
+                            colContents = layout.getContentAndType(selector); 
+                            cols.push({id: thisId, content: colContents})
+                        });
+                        thisContent.content[dataType]["options"] = {}
+                        thisContent.content[dataType]["options"]["num"] = num;
+                        thisContent.content[dataType]["content"] = cols;
+
+
+                    }
+
+                    
+                }
+                
+                contents.push(thisContent)
+
+            });
             var thisSection = {
                 id: $node.attr("id"),
                 Background: background,
-                type: $node.attr("data-type")
-
+                type: $node.attr("data-type"),
+                content: contents
             };
             json["sections"].push(thisSection)
         });
         console.log("to save")
         console.log(json)
+    },
+    getContentAndType: function(node){
+        console.log("get " + node)
+        var $temp = $(node).clone();
+        $temp.removeClass("AvailableToolbar");
+        var type = $temp.className;
+        console.log($temp);
+
+        var returnObj = {}
+        returnObj[type] = {};
+        return returnObj    
     }
 }
 
